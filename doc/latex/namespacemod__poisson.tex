@@ -1,0 +1,303 @@
+\hypertarget{namespacemod__poisson}{}\doxysection{mod\+\_\+poisson Module Reference}
+\label{namespacemod__poisson}\index{mod\_poisson@{mod\_poisson}}
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemod__poisson_acbcfb48a78b2d8f1941e08889a416fbb}{frst\+\_\+gss}} (N1, min1, max1, x, w, f)
+\begin{DoxyCompactList}\small\item\em First guess for potential f. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemod__poisson_af1d0dc635caea2e3ae630cac8c6c0c7e}{solver}} (N1, min1, max1, x, w, f)
+\begin{DoxyCompactList}\small\item\em Solver using Gauss-\/\+Seidel method Find f given w (e.\+g. find grav potential given density mass) \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_af2f5e1316cbfe3086424082c1ae014e7}{get\+\_\+analytic}} (N1, min1, max1, x, fth)
+\begin{DoxyCompactList}\small\item\em Specify analytic solution to be compared to by hand. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_a21b860f2bc70dff6c91cbf2520c23e91}{get\+\_\+residual}} (N1, fold, f, eps)
+\begin{DoxyCompactList}\small\item\em Compute residual as relative difference w.\+r.\+t. solution @ previous step, based on quadratic norm divided by number of points. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemod__poisson_ac864a692baef24f1eca65eb29c6ba32c}{get\+\_\+operator}} (N1, T, type, dt, d1)
+\begin{DoxyCompactList}\small\item\em Compute the operator T to be used in the RHS in the solver, to be multiplied w/ x$^\wedge$n and/or x$^\wedge$\{n+1\} (for Gauss-\/\+Seidel). type can be \+: \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemod__poisson_a54df559c727b49f9c137ef8adb5ea40b}{get\+\_\+rhs}} (N1, w, c, type, dt, d1)
+\begin{DoxyCompactList}\small\item\em Compute right hand side term i.\+e. the source (e.\+g. 4 pi rho) N.\+B.\+: d1 and dt necessary for \char`\"{}time\char`\"{} methods, not for \char`\"{}no time\char`\"{} ones. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_aaad1234d127daedaefcb825034374ad0}{get\+\_\+ax}} (N1, A, X, Y)
+\begin{DoxyCompactList}\small\item\em Compute product of square matrix A by vector X and output Y. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_afa7d2b65f1777551146aecb13fb068f9}{get\+\_\+ab}} (N1, A, B, AB)
+\begin{DoxyCompactList}\small\item\em Compute product of 2 square matrix A and B. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_aece508df9e2bfb94ccf0f21c498f7d99}{get\+\_\+ab\+\_\+1}} (N1, A, B, AB)
+\begin{DoxyCompactList}\small\item\em Compute product of 1 square matrix A w/ only diagonal and sub-\/diagonal elements + 1 element in lower left corner, w/ 1 square matrix B which is diagonal + triangular inferior. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_a2b227bace4d58eec97d2297ed5ad3f37}{invert\+\_\+tgl\+\_\+inf}} (N1, DL, DL\+\_\+inv)
+\begin{DoxyCompactList}\small\item\em Invert triangular inferior matrix Source\+: \href{https://math.stackexchange.com/questions/1003801/inverse-of-an-invertible-upper-triangular-matrix-of-order-3}{\texttt{ https\+://math.\+stackexchange.\+com/questions/1003801/inverse-\/of-\/an-\/invertible-\/upper-\/triangular-\/matrix-\/of-\/order-\/3}} Applied to specific case where diagonal elements are all the same, but the triangular inferior is not necessarily a diagonal inferior. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_a07b01f175e15718a01f02c42fe8cfec0}{get\+\_\+laplacian}} (N1, DLU)
+\begin{DoxyCompactList}\small\item\em Define 1st order Laplacian operator To do\+: \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_a99b4ffdba7667df020aaeab61a76b330}{dcmps\+\_\+laplacian}} (N1, DLU, D, L, U)
+\begin{DoxyCompactList}\small\item\em Decompose Laplacian operator into diagonal, triangular inferior and triangular superior parts. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemod__poisson_a1075fcd76df1c56ce314d8aa6efac640}{gss\+\_\+sdl}} (N1, min1, max1, x, w, f)
+\begin{DoxyCompactList}\small\item\em Solver using Gauss-\/\+Seidel method Find f given w (e.\+g. find grav potential given density mass) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{namespacemod__poisson_a99b4ffdba7667df020aaeab61a76b330}\label{namespacemod__poisson_a99b4ffdba7667df020aaeab61a76b330}} 
+\index{mod\_poisson@{mod\_poisson}!dcmps\_laplacian@{dcmps\_laplacian}}
+\index{dcmps\_laplacian@{dcmps\_laplacian}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{dcmps\_laplacian()}{dcmps\_laplacian()}}
+{\footnotesize\ttfamily subroutine mod\+\_\+poisson\+::dcmps\+\_\+laplacian (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, dimension(n1,n1), intent(in)}]{DLU,  }\item[{double precision, dimension(n1,n1), intent(out)}]{D,  }\item[{double precision, dimension(n1,n1), intent(out)}]{L,  }\item[{double precision, dimension(n1,n1), intent(out)}]{U }\end{DoxyParamCaption})}
+
+
+
+Decompose Laplacian operator into diagonal, triangular inferior and triangular superior parts. 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_a99b4ffdba7667df020aaeab61a76b330_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__poisson_acbcfb48a78b2d8f1941e08889a416fbb}\label{namespacemod__poisson_acbcfb48a78b2d8f1941e08889a416fbb}} 
+\index{mod\_poisson@{mod\_poisson}!frst\_gss@{frst\_gss}}
+\index{frst\_gss@{frst\_gss}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{frst\_gss()}{frst\_gss()}}
+{\footnotesize\ttfamily subroutine public mod\+\_\+poisson\+::frst\+\_\+gss (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, intent(in)}]{min1,  }\item[{double precision, intent(in)}]{max1,  }\item[{double precision, dimension(n1), intent(in)}]{x,  }\item[{double precision, dimension(n1), intent(in)}]{w,  }\item[{double precision, dimension(\+:), intent(out), allocatable}]{f }\end{DoxyParamCaption})}
+
+
+
+First guess for potential f. 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{namespacemod__poisson_acbcfb48a78b2d8f1941e08889a416fbb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__poisson_afa7d2b65f1777551146aecb13fb068f9}\label{namespacemod__poisson_afa7d2b65f1777551146aecb13fb068f9}} 
+\index{mod\_poisson@{mod\_poisson}!get\_ab@{get\_ab}}
+\index{get\_ab@{get\_ab}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{get\_ab()}{get\_ab()}}
+{\footnotesize\ttfamily subroutine mod\+\_\+poisson\+::get\+\_\+ab (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, dimension(n1,n1), intent(in)}]{A,  }\item[{double precision, dimension(n1,n1), intent(in)}]{B,  }\item[{double precision, dimension(n1,n1), intent(out)}]{AB }\end{DoxyParamCaption})}
+
+
+
+Compute product of 2 square matrix A and B. 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_afa7d2b65f1777551146aecb13fb068f9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__poisson_aece508df9e2bfb94ccf0f21c498f7d99}\label{namespacemod__poisson_aece508df9e2bfb94ccf0f21c498f7d99}} 
+\index{mod\_poisson@{mod\_poisson}!get\_ab\_1@{get\_ab\_1}}
+\index{get\_ab\_1@{get\_ab\_1}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{get\_ab\_1()}{get\_ab\_1()}}
+{\footnotesize\ttfamily subroutine mod\+\_\+poisson\+::get\+\_\+ab\+\_\+1 (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, dimension(n1,n1), intent(in)}]{A,  }\item[{double precision, dimension(n1,n1), intent(in)}]{B,  }\item[{double precision, dimension(n1,n1), intent(out)}]{AB }\end{DoxyParamCaption})}
+
+
+
+Compute product of 1 square matrix A w/ only diagonal and sub-\/diagonal elements + 1 element in lower left corner, w/ 1 square matrix B which is diagonal + triangular inferior. 
+
+\mbox{\Hypertarget{namespacemod__poisson_af2f5e1316cbfe3086424082c1ae014e7}\label{namespacemod__poisson_af2f5e1316cbfe3086424082c1ae014e7}} 
+\index{mod\_poisson@{mod\_poisson}!get\_analytic@{get\_analytic}}
+\index{get\_analytic@{get\_analytic}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{get\_analytic()}{get\_analytic()}}
+{\footnotesize\ttfamily subroutine mod\+\_\+poisson\+::get\+\_\+analytic (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, intent(in)}]{min1,  }\item[{double precision, intent(in)}]{max1,  }\item[{double precision, dimension(n1), intent(in)}]{x,  }\item[{double precision, dimension(\+:), intent(out), allocatable}]{fth }\end{DoxyParamCaption})}
+
+
+
+Specify analytic solution to be compared to by hand. 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_af2f5e1316cbfe3086424082c1ae014e7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__poisson_aaad1234d127daedaefcb825034374ad0}\label{namespacemod__poisson_aaad1234d127daedaefcb825034374ad0}} 
+\index{mod\_poisson@{mod\_poisson}!get\_ax@{get\_ax}}
+\index{get\_ax@{get\_ax}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{get\_ax()}{get\_ax()}}
+{\footnotesize\ttfamily subroutine mod\+\_\+poisson\+::get\+\_\+ax (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, dimension(n1,n1), intent(in)}]{A,  }\item[{double precision, dimension(n1), intent(in)}]{X,  }\item[{double precision, dimension(n1), intent(out)}]{Y }\end{DoxyParamCaption})}
+
+
+
+Compute product of square matrix A by vector X and output Y. 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_aaad1234d127daedaefcb825034374ad0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__poisson_a07b01f175e15718a01f02c42fe8cfec0}\label{namespacemod__poisson_a07b01f175e15718a01f02c42fe8cfec0}} 
+\index{mod\_poisson@{mod\_poisson}!get\_laplacian@{get\_laplacian}}
+\index{get\_laplacian@{get\_laplacian}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{get\_laplacian()}{get\_laplacian()}}
+{\footnotesize\ttfamily subroutine mod\+\_\+poisson\+::get\+\_\+laplacian (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, dimension(n1,n1), intent(out)}]{DLU }\end{DoxyParamCaption})}
+
+
+
+Define 1st order Laplacian operator To do\+: 
+
+
+\begin{DoxyItemize}
+\item provide possibility to go higher order
+\item adapt to ghost cells for non periodic cases 
+\end{DoxyItemize}Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_a07b01f175e15718a01f02c42fe8cfec0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__poisson_ac864a692baef24f1eca65eb29c6ba32c}\label{namespacemod__poisson_ac864a692baef24f1eca65eb29c6ba32c}} 
+\index{mod\_poisson@{mod\_poisson}!get\_operator@{get\_operator}}
+\index{get\_operator@{get\_operator}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{get\_operator()}{get\_operator()}}
+{\footnotesize\ttfamily subroutine, public mod\+\_\+poisson\+::get\+\_\+operator (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, dimension(\+:,\+:), intent(out), allocatable}]{T,  }\item[{character(len=$\ast$), intent(in)}]{type,  }\item[{double precision, intent(in), optional}]{dt,  }\item[{double precision, intent(in), optional}]{d1 }\end{DoxyParamCaption})}
+
+
+
+Compute the operator T to be used in the RHS in the solver, to be multiplied w/ x$^\wedge$n and/or x$^\wedge$\{n+1\} (for Gauss-\/\+Seidel). type can be \+: 
+
+
+\begin{DoxyItemize}
+\item \char`\"{}no\+\_\+time\+\_\+\+Jacobi\char`\"{} to solve DPhi=rho directly w/ Jacobi (and then, T stands for Laplacian operator)
+\item \char`\"{}time\+\_\+\+Jacobi\char`\"{} to solve dt\+Phi=DPhi-\/rho w/ Jacobi
+\item \char`\"{}\+GS\char`\"{} to use Gauss-\/\+Seidel
+\end{DoxyItemize}
+
+We assume periodic boundary conditions N.\+B.\+: d1 and dt necessary for \char`\"{}time\char`\"{} methods, not for \char`\"{}no time\char`\"{} ones Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_ac864a692baef24f1eca65eb29c6ba32c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_ac864a692baef24f1eca65eb29c6ba32c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__poisson_a21b860f2bc70dff6c91cbf2520c23e91}\label{namespacemod__poisson_a21b860f2bc70dff6c91cbf2520c23e91}} 
+\index{mod\_poisson@{mod\_poisson}!get\_residual@{get\_residual}}
+\index{get\_residual@{get\_residual}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{get\_residual()}{get\_residual()}}
+{\footnotesize\ttfamily subroutine mod\+\_\+poisson\+::get\+\_\+residual (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, dimension(n1), intent(in)}]{fold,  }\item[{double precision, dimension(n1), intent(in)}]{f,  }\item[{double precision, intent(out)}]{eps }\end{DoxyParamCaption})}
+
+
+
+Compute residual as relative difference w.\+r.\+t. solution @ previous step, based on quadratic norm divided by number of points. 
+
+Compute residual as relative difference w.\+r.\+t. solution @ previous step, based on quadratic norm. Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_a21b860f2bc70dff6c91cbf2520c23e91_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__poisson_a54df559c727b49f9c137ef8adb5ea40b}\label{namespacemod__poisson_a54df559c727b49f9c137ef8adb5ea40b}} 
+\index{mod\_poisson@{mod\_poisson}!get\_rhs@{get\_rhs}}
+\index{get\_rhs@{get\_rhs}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{get\_rhs()}{get\_rhs()}}
+{\footnotesize\ttfamily subroutine, public mod\+\_\+poisson\+::get\+\_\+rhs (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, dimension(n1), intent(in)}]{w,  }\item[{double precision, dimension(\+:), intent(out), allocatable}]{c,  }\item[{character(len=$\ast$), intent(in)}]{type,  }\item[{double precision, intent(in), optional}]{dt,  }\item[{double precision, intent(in), optional}]{d1 }\end{DoxyParamCaption})}
+
+
+
+Compute right hand side term i.\+e. the source (e.\+g. 4 pi rho) N.\+B.\+: d1 and dt necessary for \char`\"{}time\char`\"{} methods, not for \char`\"{}no time\char`\"{} ones. 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_a54df559c727b49f9c137ef8adb5ea40b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_a54df559c727b49f9c137ef8adb5ea40b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__poisson_a1075fcd76df1c56ce314d8aa6efac640}\label{namespacemod__poisson_a1075fcd76df1c56ce314d8aa6efac640}} 
+\index{mod\_poisson@{mod\_poisson}!gss\_sdl@{gss\_sdl}}
+\index{gss\_sdl@{gss\_sdl}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{gss\_sdl()}{gss\_sdl()}}
+{\footnotesize\ttfamily subroutine, public mod\+\_\+poisson\+::gss\+\_\+sdl (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, intent(in)}]{min1,  }\item[{double precision, intent(in)}]{max1,  }\item[{double precision, dimension(n1), intent(in)}]{x,  }\item[{double precision, dimension(n1), intent(in)}]{w,  }\item[{double precision, dimension(n1), intent(inout)}]{f }\end{DoxyParamCaption})}
+
+
+
+Solver using Gauss-\/\+Seidel method Find f given w (e.\+g. find grav potential given density mass) 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_a1075fcd76df1c56ce314d8aa6efac640_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__poisson_a2b227bace4d58eec97d2297ed5ad3f37}\label{namespacemod__poisson_a2b227bace4d58eec97d2297ed5ad3f37}} 
+\index{mod\_poisson@{mod\_poisson}!invert\_tgl\_inf@{invert\_tgl\_inf}}
+\index{invert\_tgl\_inf@{invert\_tgl\_inf}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{invert\_tgl\_inf()}{invert\_tgl\_inf()}}
+{\footnotesize\ttfamily subroutine mod\+\_\+poisson\+::invert\+\_\+tgl\+\_\+inf (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, dimension(n1,n1), intent(in)}]{DL,  }\item[{double precision, dimension(n1,n1), intent(out)}]{DL\+\_\+inv }\end{DoxyParamCaption})}
+
+
+
+Invert triangular inferior matrix Source\+: \href{https://math.stackexchange.com/questions/1003801/inverse-of-an-invertible-upper-triangular-matrix-of-order-3}{\texttt{ https\+://math.\+stackexchange.\+com/questions/1003801/inverse-\/of-\/an-\/invertible-\/upper-\/triangular-\/matrix-\/of-\/order-\/3}} Applied to specific case where diagonal elements are all the same, but the triangular inferior is not necessarily a diagonal inferior. 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{namespacemod__poisson_a2b227bace4d58eec97d2297ed5ad3f37_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_a2b227bace4d58eec97d2297ed5ad3f37_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__poisson_af1d0dc635caea2e3ae630cac8c6c0c7e}\label{namespacemod__poisson_af1d0dc635caea2e3ae630cac8c6c0c7e}} 
+\index{mod\_poisson@{mod\_poisson}!solver@{solver}}
+\index{solver@{solver}!mod\_poisson@{mod\_poisson}}
+\doxysubsubsection{\texorpdfstring{solver()}{solver()}}
+{\footnotesize\ttfamily subroutine, public mod\+\_\+poisson\+::solver (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, intent(in)}]{min1,  }\item[{double precision, intent(in)}]{max1,  }\item[{double precision, dimension(n1), intent(in)}]{x,  }\item[{double precision, dimension(n1), intent(in)}]{w,  }\item[{double precision, dimension(n1), intent(inout)}]{f }\end{DoxyParamCaption})}
+
+
+
+Solver using Gauss-\/\+Seidel method Find f given w (e.\+g. find grav potential given density mass) 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__poisson_af1d0dc635caea2e3ae630cac8c6c0c7e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{namespacemod__poisson_af1d0dc635caea2e3ae630cac8c6c0c7e_icgraph}
+\end{center}
+\end{figure}

@@ -1,4 +1,4 @@
-!> Module with basic data types used in Zeltron
+!> Basic data types
 module mod_basic_types
 implicit none
 public

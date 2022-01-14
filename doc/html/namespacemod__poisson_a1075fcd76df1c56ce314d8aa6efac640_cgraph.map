@@ -1,0 +1,6 @@
+<map id="mod_poisson::gss_sdl" name="mod_poisson::gss_sdl">
+<area shape="rect" id="node1" title="Solver using Gauss&#45;Seidel method Find f given w (e.g. find grav potential given density mass)" alt="" coords="5,56,157,83"/>
+<area shape="rect" id="node2" href="$namespacemod__poisson.html#af2f5e1316cbfe3086424082c1ae014e7" title="Specify analytic solution to be compared to by hand." alt="" coords="205,5,383,32"/>
+<area shape="rect" id="node3" href="$namespacemod__poisson.html#a21b860f2bc70dff6c91cbf2520c23e91" title="Compute residual as relative difference w.r.t. solution @ previous step, based on quadratic norm divi..." alt="" coords="205,56,383,83"/>
+<area shape="rect" id="node4" href="$namespacemod__io.html#a96029071c901f3afd0b2d6e514144dd5" title="Serial writing of outputs." alt="" coords="230,107,358,133"/>
+</map>

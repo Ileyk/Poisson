@@ -1,0 +1,9 @@
+<map id="mod_poisson::get_rhs" name="mod_poisson::get_rhs">
+<area shape="rect" id="node1" title="Compute right hand side term i.e. the source (e.g. 4 pi rho) N.B.: d1 and dt necessary for &quot;time&quot; met..." alt="" coords="5,122,156,149"/>
+<area shape="rect" id="node2" href="$namespacemod__poisson.html#a99b4ffdba7667df020aaeab61a76b330" title="Decompose Laplacian operator into diagonal, triangular inferior and triangular superior parts." alt="" coords="222,5,369,47"/>
+<area shape="rect" id="node3" href="$namespacemod__poisson.html#aaad1234d127daedaefcb825034374ad0" title="Compute product of square matrix A by vector X and output Y." alt="" coords="222,71,369,98"/>
+<area shape="rect" id="node4" href="$namespacemod__poisson.html#a07b01f175e15718a01f02c42fe8cfec0" title="Define 1st order Laplacian operator To do:" alt="" coords="204,122,387,149"/>
+<area shape="rect" id="node5" href="$namespacemod__poisson.html#a2b227bace4d58eec97d2297ed5ad3f37" title="Invert triangular inferior matrix Source: https://math.stackexchange.com/questions/1003801/inverse&#45;of..." alt="" coords="226,173,365,215"/>
+<area shape="rect" id="node7" href="$namespacemod__mpi.html#af4e80516058ccbe43163cb6f539b2c97" title="Exit MPI&#45;AMRVAC with an error message." alt="" coords="443,235,573,262"/>
+<area shape="rect" id="node6" href="$namespacemod__poisson.html#afa7d2b65f1777551146aecb13fb068f9" title="Compute product of 2 square matrix A and B." alt="" coords="435,181,581,207"/>
+</map>

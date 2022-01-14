@@ -5,22 +5,14 @@ use mod_init
 use mod_mpi
 use mod_poisson
 use mod_io
-
-! use mod_share
-! use mod_rdm
-! use class_pcl
-! use mod_push
-! use mod_io
+use mod_bc
 
 use mpi_f08
 
 implicit none
 
-double precision, parameter :: min1=-0.5d0, max1=0.5d0
-integer, parameter :: N1=100
 double precision, allocatable :: x(:), w(:), f(:)
 
-! Initialize the MPI environment
 call init_MPI
 if (id==0) print*, 'Let it snow on', NPROC, 'processors'
 
@@ -28,16 +20,25 @@ if (NPROC/=1) then
   call mpistop("Not MPI parallelized yet")
 endif
 
-call make_grid(N1,min1,max1,x)
-call init(N1,min1,max1,x,w)
+call check_par
 
-call save_vec(N1,0,'w_',w)
+call init_par
 
-call frst_gss(N1,min1,max1,x,w,f)
+call make_grid(N1_I,NGC,iImin1,iImax1,min1,max1,x)
 
-call save_vec(N1,0,'f_',f)
+call init(N1_I,iOmin1,iOmax1,min1,max1,x,w)
 
-call solver(N1,min1,max1,x,w,f)
+call get_bc(N1_I,NGC,iOmin1,iOmax1,bc_type,w)
+
+call save_vec(N1_I,0,'w_',w)
+
+call frst_gss(N1_I,iOmin1,iOmax1,min1,max1,x,w,f)
+
+call get_bc(N1_I,NGC,iOmin1,iOmax1,bc_type,f)
+
+call save_vec(N1_I,0,'f_',f)
+
+call solver(N1_I,NGC,iOmin1,iOmax1,min1,max1,pencil,solver_type,bc_type,x,w,f)
 
 call finalize_MPI
 

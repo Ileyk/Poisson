@@ -1,3 +1,4 @@
+!> Random number generators
 module mod_rdm
 implicit none
 

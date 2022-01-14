@@ -1,0 +1,20 @@
+\hypertarget{namespacemod__share}{}\doxysection{mod\+\_\+share Module Reference}
+\label{namespacemod__share}\index{mod\_share@{mod\_share}}
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemod__share_adfc80e44792f1acf4839255198f8f235}{share\+\_\+workload}} (id, NPROC, N\+\_\+pcl\+\_\+tot, N\+\_\+pcl)
+\begin{DoxyCompactList}\small\item\em Compute the \# of particles N\+\_\+pcl processor id should handled to optimize workload balance given the total \# of particles N\+\_\+pcl\+\_\+tot in simulation space and the total \# of processors NPROC. This subroutine itself is unbalanced since proc \#i needs to compute the \# of particles handled by the previous processors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{namespacemod__share_adfc80e44792f1acf4839255198f8f235}\label{namespacemod__share_adfc80e44792f1acf4839255198f8f235}} 
+\index{mod\_share@{mod\_share}!share\_workload@{share\_workload}}
+\index{share\_workload@{share\_workload}!mod\_share@{mod\_share}}
+\doxysubsubsection{\texorpdfstring{share\_workload()}{share\_workload()}}
+{\footnotesize\ttfamily subroutine, public mod\+\_\+share\+::share\+\_\+workload (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{id,  }\item[{integer, intent(in)}]{NPROC,  }\item[{integer, intent(in)}]{N\+\_\+pcl\+\_\+tot,  }\item[{integer, intent(out)}]{N\+\_\+pcl }\end{DoxyParamCaption})}
+
+
+
+Compute the \# of particles N\+\_\+pcl processor id should handled to optimize workload balance given the total \# of particles N\+\_\+pcl\+\_\+tot in simulation space and the total \# of processors NPROC. This subroutine itself is unbalanced since proc \#i needs to compute the \# of particles handled by the previous processors. 
+

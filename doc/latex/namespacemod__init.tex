@@ -1,0 +1,36 @@
+\hypertarget{namespacemod__init}{}\doxysection{mod\+\_\+init Module Reference}
+\label{namespacemod__init}\index{mod\_init@{mod\_init}}
+
+
+Initialization of quantities on the grid.  
+
+
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemod__init_a41648636c4461680eb7d11d39313bb98}{init}} (N1, min1, max1, x, w)
+\begin{DoxyCompactList}\small\item\em Initialize w scalar field on grid The spatial averaged (i) does not play any role in the Poisson equation (since its Laplacian is zero) and (ii) needs to be subtracted for the Jacobi method to work. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Initialization of quantities on the grid. 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{namespacemod__init_a41648636c4461680eb7d11d39313bb98}\label{namespacemod__init_a41648636c4461680eb7d11d39313bb98}} 
+\index{mod\_init@{mod\_init}!init@{init}}
+\index{init@{init}!mod\_init@{mod\_init}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily subroutine, public mod\+\_\+init\+::init (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, intent(in)}]{min1,  }\item[{double precision, intent(in)}]{max1,  }\item[{double precision, dimension(n1), intent(in)}]{x,  }\item[{double precision, dimension(\+:), intent(out), allocatable}]{w }\end{DoxyParamCaption})}
+
+
+
+Initialize w scalar field on grid The spatial averaged (i) does not play any role in the Poisson equation (since its Laplacian is zero) and (ii) needs to be subtracted for the Jacobi method to work. 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{namespacemod__init_a41648636c4461680eb7d11d39313bb98_icgraph}
+\end{center}
+\end{figure}

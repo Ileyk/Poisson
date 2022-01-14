@@ -1,0 +1,8 @@
+<map id="mod_poisson::get_ab" name="mod_poisson::get_ab">
+<area shape="rect" id="node1" title="Compute product of 2 square matrix A and B." alt="" coords="724,27,871,53"/>
+<area shape="rect" id="node2" href="$namespacemod__poisson.html#ac864a692baef24f1eca65eb29c6ba32c" title="Compute the operator T to be used in the RHS in the solver, to be multiplied w/ x^n and/or x^{n+1} (f..." alt="" coords="311,5,489,32"/>
+<area shape="rect" id="node5" href="$namespacemod__poisson.html#a2b227bace4d58eec97d2297ed5ad3f37" title="Invert triangular inferior matrix Source: https://math.stackexchange.com/questions/1003801/inverse&#45;of..." alt="" coords="537,49,676,90"/>
+<area shape="rect" id="node3" href="$namespacemod__poisson.html#af1d0dc635caea2e3ae630cac8c6c0c7e" title="Solver using Gauss&#45;Seidel method Find f given w (e.g. find grav potential given density mass)" alt="" coords="120,31,263,57"/>
+<area shape="rect" id="node4" href="$main_8f90.html#a95fd65d831712d34968ac6e47df45395" title=" " alt="" coords="5,31,72,57"/>
+<area shape="rect" id="node6" href="$namespacemod__poisson.html#a54df559c727b49f9c137ef8adb5ea40b" title="Compute right hand side term i.e. the source (e.g. 4 pi rho) N.B.: d1 and dt necessary for &quot;time&quot; met..." alt="" coords="325,56,475,83"/>
+</map>

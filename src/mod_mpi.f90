@@ -1,3 +1,4 @@
+!> MPI
 module mod_mpi
 use mpi_f08
 implicit none

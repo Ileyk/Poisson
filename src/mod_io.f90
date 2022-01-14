@@ -1,3 +1,4 @@
+!> Input/Output
 module mod_io
 
 implicit none
@@ -7,11 +8,9 @@ public :: save_vec
 contains
 
 ! -----------------------------------------------------------------------------
-! Serial writing of outputs
+!> Serial writing of outputs
 ! -----------------------------------------------------------------------------
 subroutine save_vec(N1,it,base_filename,vec)
-use mod_mpi, only: id, icomm, ierr, NPROC
-use mpi_f08
 integer, intent(in) :: N1, it
 double precision, intent(in) :: vec(N1)
 character(len=*), intent(in) :: base_filename

@@ -1,0 +1,9 @@
+<map id="mod_mpi::mpistop" name="mod_mpi::mpistop">
+<area shape="rect" id="node1" title="Exit MPI&#45;AMRVAC with an error message." alt="" coords="724,78,853,105"/>
+<area shape="rect" id="node2" href="$namespacemod__poisson.html#ac864a692baef24f1eca65eb29c6ba32c" title="Compute the operator T to be used in the RHS in the solver, to be multiplied w/ x^n and/or x^{n+1} (f..." alt="" coords="311,53,489,79"/>
+<area shape="rect" id="node4" href="$main_8f90.html#a95fd65d831712d34968ac6e47df45395" title=" " alt="" coords="5,67,72,94"/>
+<area shape="rect" id="node5" href="$namespacemod__poisson.html#a54df559c727b49f9c137ef8adb5ea40b" title="Compute right hand side term i.e. the source (e.g. 4 pi rho) N.B.: d1 and dt necessary for &quot;time&quot; met..." alt="" coords="325,103,475,130"/>
+<area shape="rect" id="node6" href="$namespacemod__mpi.html#acc921ad615d1ce768a6aa549d7e73d0b" title="Initialize the MPI environment." alt="" coords="127,147,255,174"/>
+<area shape="rect" id="node7" href="$namespacemod__poisson.html#a2b227bace4d58eec97d2297ed5ad3f37" title="Invert triangular inferior matrix Source: https://math.stackexchange.com/questions/1003801/inverse&#45;of..." alt="" coords="537,71,676,112"/>
+<area shape="rect" id="node3" href="$namespacemod__poisson.html#af1d0dc635caea2e3ae630cac8c6c0c7e" title="Solver using Gauss&#45;Seidel method Find f given w (e.g. find grav potential given density mass)" alt="" coords="120,67,263,94"/>
+</map>

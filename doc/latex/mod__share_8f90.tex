@@ -1,0 +1,12 @@
+\hypertarget{mod__share_8f90}{}\doxysection{/\+Users/ielm/\+Work/\+Codes/\+Poisson/src/mod\+\_\+share.f90 File Reference}
+\label{mod__share_8f90}\index{/Users/ielm/Work/Codes/Poisson/src/mod\_share.f90@{/Users/ielm/Work/Codes/Poisson/src/mod\_share.f90}}
+\doxysubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespacemod__share}{mod\+\_\+share}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemod__share_adfc80e44792f1acf4839255198f8f235}{mod\+\_\+share\+::share\+\_\+workload}} (id, NPROC, N\+\_\+pcl\+\_\+tot, N\+\_\+pcl)
+\begin{DoxyCompactList}\small\item\em Compute the \# of particles N\+\_\+pcl processor id should handled to optimize workload balance given the total \# of particles N\+\_\+pcl\+\_\+tot in simulation space and the total \# of processors NPROC. This subroutine itself is unbalanced since proc \#i needs to compute the \# of particles handled by the previous processors. \end{DoxyCompactList}\end{DoxyCompactItemize}

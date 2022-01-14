@@ -1,0 +1,14 @@
+<map id="mod_poisson::solver" name="mod_poisson::solver">
+<area shape="rect" id="node1" title="Solver using Gauss&#45;Seidel method Find f given w (e.g. find grav potential given density mass)" alt="" coords="5,148,148,175"/>
+<area shape="rect" id="node2" href="$namespacemod__poisson.html#af2f5e1316cbfe3086424082c1ae014e7" title="Specify analytic solution to be compared to by hand." alt="" coords="197,21,374,48"/>
+<area shape="rect" id="node3" href="$namespacemod__poisson.html#aaad1234d127daedaefcb825034374ad0" title="Compute product of square matrix A by vector X and output Y." alt="" coords="441,5,587,32"/>
+<area shape="rect" id="node4" href="$namespacemod__poisson.html#ac864a692baef24f1eca65eb29c6ba32c" title="Compute the operator T to be used in the RHS in the solver, to be multiplied w/ x^n and/or x^{n+1} (f..." alt="" coords="196,173,375,200"/>
+<area shape="rect" id="node10" href="$namespacemod__poisson.html#a21b860f2bc70dff6c91cbf2520c23e91" title="Compute residual as relative difference w.r.t. solution @ previous step, based on quadratic norm divi..." alt="" coords="197,224,374,251"/>
+<area shape="rect" id="node11" href="$namespacemod__poisson.html#a54df559c727b49f9c137ef8adb5ea40b" title="Compute right hand side term i.e. the source (e.g. 4 pi rho) N.B.: d1 and dt necessary for &quot;time&quot; met..." alt="" coords="210,123,361,149"/>
+<area shape="rect" id="node12" href="$namespacemod__io.html#a96029071c901f3afd0b2d6e514144dd5" title="Serial writing of outputs." alt="" coords="221,275,349,301"/>
+<area shape="rect" id="node5" href="$namespacemod__poisson.html#a99b4ffdba7667df020aaeab61a76b330" title="Decompose Laplacian operator into diagonal, triangular inferior and triangular superior parts." alt="" coords="441,225,587,266"/>
+<area shape="rect" id="node6" href="$namespacemod__poisson.html#afa7d2b65f1777551146aecb13fb068f9" title="Compute product of 2 square matrix A and B." alt="" coords="653,253,800,280"/>
+<area shape="rect" id="node7" href="$namespacemod__poisson.html#a07b01f175e15718a01f02c42fe8cfec0" title="Define 1st order Laplacian operator To do:" alt="" coords="423,173,605,200"/>
+<area shape="rect" id="node8" href="$namespacemod__poisson.html#a2b227bace4d58eec97d2297ed5ad3f37" title="Invert triangular inferior matrix Source: https://math.stackexchange.com/questions/1003801/inverse&#45;of..." alt="" coords="445,107,583,149"/>
+<area shape="rect" id="node9" href="$namespacemod__mpi.html#af4e80516058ccbe43163cb6f539b2c97" title="Exit MPI&#45;AMRVAC with an error message." alt="" coords="662,115,791,141"/>
+</map>

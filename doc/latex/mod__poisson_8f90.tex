@@ -1,0 +1,34 @@
+\hypertarget{mod__poisson_8f90}{}\doxysection{/\+Users/ielm/\+Work/\+Codes/\+Poisson/src/mod\+\_\+poisson.f90 File Reference}
+\label{mod__poisson_8f90}\index{/Users/ielm/Work/Codes/Poisson/src/mod\_poisson.f90@{/Users/ielm/Work/Codes/Poisson/src/mod\_poisson.f90}}
+\doxysubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespacemod__poisson}{mod\+\_\+poisson}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemod__poisson_acbcfb48a78b2d8f1941e08889a416fbb}{mod\+\_\+poisson\+::frst\+\_\+gss}} (N1, min1, max1, x, w, f)
+\begin{DoxyCompactList}\small\item\em First guess for potential f. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemod__poisson_af1d0dc635caea2e3ae630cac8c6c0c7e}{mod\+\_\+poisson\+::solver}} (N1, min1, max1, x, w, f)
+\begin{DoxyCompactList}\small\item\em Solver using Gauss-\/\+Seidel method Find f given w (e.\+g. find grav potential given density mass) \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_af2f5e1316cbfe3086424082c1ae014e7}{mod\+\_\+poisson\+::get\+\_\+analytic}} (N1, min1, max1, x, fth)
+\begin{DoxyCompactList}\small\item\em Specify analytic solution to be compared to by hand. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_a21b860f2bc70dff6c91cbf2520c23e91}{mod\+\_\+poisson\+::get\+\_\+residual}} (N1, fold, f, eps)
+\begin{DoxyCompactList}\small\item\em Compute residual as relative difference w.\+r.\+t. solution @ previous step, based on quadratic norm divided by number of points. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemod__poisson_ac864a692baef24f1eca65eb29c6ba32c}{mod\+\_\+poisson\+::get\+\_\+operator}} (N1, T, type, dt, d1)
+\begin{DoxyCompactList}\small\item\em Compute the operator T to be used in the RHS in the solver, to be multiplied w/ x$^\wedge$n and/or x$^\wedge$\{n+1\} (for Gauss-\/\+Seidel). type can be \+: \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemod__poisson_a54df559c727b49f9c137ef8adb5ea40b}{mod\+\_\+poisson\+::get\+\_\+rhs}} (N1, w, c, type, dt, d1)
+\begin{DoxyCompactList}\small\item\em Compute right hand side term i.\+e. the source (e.\+g. 4 pi rho) N.\+B.\+: d1 and dt necessary for \char`\"{}time\char`\"{} methods, not for \char`\"{}no time\char`\"{} ones. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_aaad1234d127daedaefcb825034374ad0}{mod\+\_\+poisson\+::get\+\_\+ax}} (N1, A, X, Y)
+\begin{DoxyCompactList}\small\item\em Compute product of square matrix A by vector X and output Y. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_afa7d2b65f1777551146aecb13fb068f9}{mod\+\_\+poisson\+::get\+\_\+ab}} (N1, A, B, AB)
+\begin{DoxyCompactList}\small\item\em Compute product of 2 square matrix A and B. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_aece508df9e2bfb94ccf0f21c498f7d99}{mod\+\_\+poisson\+::get\+\_\+ab\+\_\+1}} (N1, A, B, AB)
+\begin{DoxyCompactList}\small\item\em Compute product of 1 square matrix A w/ only diagonal and sub-\/diagonal elements + 1 element in lower left corner, w/ 1 square matrix B which is diagonal + triangular inferior. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_a2b227bace4d58eec97d2297ed5ad3f37}{mod\+\_\+poisson\+::invert\+\_\+tgl\+\_\+inf}} (N1, DL, DL\+\_\+inv)
+\begin{DoxyCompactList}\small\item\em Invert triangular inferior matrix Source\+: \href{https://math.stackexchange.com/questions/1003801/inverse-of-an-invertible-upper-triangular-matrix-of-order-3}{\texttt{ https\+://math.\+stackexchange.\+com/questions/1003801/inverse-\/of-\/an-\/invertible-\/upper-\/triangular-\/matrix-\/of-\/order-\/3}} Applied to specific case where diagonal elements are all the same, but the triangular inferior is not necessarily a diagonal inferior. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_a07b01f175e15718a01f02c42fe8cfec0}{mod\+\_\+poisson\+::get\+\_\+laplacian}} (N1, DLU)
+\begin{DoxyCompactList}\small\item\em Define 1st order Laplacian operator To do\+: \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemod__poisson_a99b4ffdba7667df020aaeab61a76b330}{mod\+\_\+poisson\+::dcmps\+\_\+laplacian}} (N1, DLU, D, L, U)
+\begin{DoxyCompactList}\small\item\em Decompose Laplacian operator into diagonal, triangular inferior and triangular superior parts. \end{DoxyCompactList}\end{DoxyCompactItemize}

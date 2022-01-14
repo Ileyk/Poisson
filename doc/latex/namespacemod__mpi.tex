@@ -1,0 +1,143 @@
+\hypertarget{namespacemod__mpi}{}\doxysection{mod\+\_\+mpi Module Reference}
+\label{namespacemod__mpi}\index{mod\_mpi@{mod\_mpi}}
+
+
+MPI.  
+
+
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemod__mpi_acc921ad615d1ce768a6aa549d7e73d0b}{init\+\_\+mpi}}
+\begin{DoxyCompactList}\small\item\em Initialize the MPI environment. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemod__mpi_ade103aa8cb961590f1f838b06b9adcab}{finalize\+\_\+mpi}}
+\begin{DoxyCompactList}\small\item\em Finalize (or shutdown) the MPI environment. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemod__mpi_af4e80516058ccbe43163cb6f539b2c97}{mpistop}} (message)
+\begin{DoxyCompactList}\small\item\em Exit MPI-\/\+AMRVAC with an error message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+integer, public \mbox{\hyperlink{namespacemod__mpi_a910a3e2349c00696e5d61d22359d3401}{nproc}}
+\begin{DoxyCompactList}\small\item\em The number of MPI tasks. \end{DoxyCompactList}\item 
+integer, public \mbox{\hyperlink{namespacemod__mpi_a2d1c3e15cd3253f9e6380aff1f078678}{id}}
+\begin{DoxyCompactList}\small\item\em The rank of the current MPI task. \end{DoxyCompactList}\item 
+type(mpi\+\_\+comm), public \mbox{\hyperlink{namespacemod__mpi_a7ee2ae36a12825399c923bcda1302400}{icomm}}
+\begin{DoxyCompactList}\small\item\em The MPI communicator. \end{DoxyCompactList}\item 
+integer, public \mbox{\hyperlink{namespacemod__mpi_aedecb3232c9979a5c0e4d6375b20c548}{ierr}}
+\begin{DoxyCompactList}\small\item\em A global MPI error return code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+MPI. 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{namespacemod__mpi_ade103aa8cb961590f1f838b06b9adcab}\label{namespacemod__mpi_ade103aa8cb961590f1f838b06b9adcab}} 
+\index{mod\_mpi@{mod\_mpi}!finalize\_mpi@{finalize\_mpi}}
+\index{finalize\_mpi@{finalize\_mpi}!mod\_mpi@{mod\_mpi}}
+\doxysubsubsection{\texorpdfstring{finalize\_mpi()}{finalize\_mpi()}}
+{\footnotesize\ttfamily subroutine, public mod\+\_\+mpi\+::finalize\+\_\+mpi}
+
+
+
+Finalize (or shutdown) the MPI environment. 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{namespacemod__mpi_ade103aa8cb961590f1f838b06b9adcab_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__mpi_acc921ad615d1ce768a6aa549d7e73d0b}\label{namespacemod__mpi_acc921ad615d1ce768a6aa549d7e73d0b}} 
+\index{mod\_mpi@{mod\_mpi}!init\_mpi@{init\_mpi}}
+\index{init\_mpi@{init\_mpi}!mod\_mpi@{mod\_mpi}}
+\doxysubsubsection{\texorpdfstring{init\_mpi()}{init\_mpi()}}
+{\footnotesize\ttfamily subroutine, public mod\+\_\+mpi\+::init\+\_\+mpi}
+
+
+
+Initialize the MPI environment. 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{namespacemod__mpi_acc921ad615d1ce768a6aa549d7e73d0b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{namespacemod__mpi_acc921ad615d1ce768a6aa549d7e73d0b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacemod__mpi_af4e80516058ccbe43163cb6f539b2c97}\label{namespacemod__mpi_af4e80516058ccbe43163cb6f539b2c97}} 
+\index{mod\_mpi@{mod\_mpi}!mpistop@{mpistop}}
+\index{mpistop@{mpistop}!mod\_mpi@{mod\_mpi}}
+\doxysubsubsection{\texorpdfstring{mpistop()}{mpistop()}}
+{\footnotesize\ttfamily subroutine, public mod\+\_\+mpi\+::mpistop (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{message }\end{DoxyParamCaption})}
+
+
+
+Exit MPI-\/\+AMRVAC with an error message. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em message} & The error message to be printed \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacemod__mpi_af4e80516058ccbe43163cb6f539b2c97_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacemod__mpi_a7ee2ae36a12825399c923bcda1302400}\label{namespacemod__mpi_a7ee2ae36a12825399c923bcda1302400}} 
+\index{mod\_mpi@{mod\_mpi}!icomm@{icomm}}
+\index{icomm@{icomm}!mod\_mpi@{mod\_mpi}}
+\doxysubsubsection{\texorpdfstring{icomm}{icomm}}
+{\footnotesize\ttfamily type(mpi\+\_\+comm), public mod\+\_\+mpi\+::icomm}
+
+
+
+The MPI communicator. 
+
+\mbox{\Hypertarget{namespacemod__mpi_a2d1c3e15cd3253f9e6380aff1f078678}\label{namespacemod__mpi_a2d1c3e15cd3253f9e6380aff1f078678}} 
+\index{mod\_mpi@{mod\_mpi}!id@{id}}
+\index{id@{id}!mod\_mpi@{mod\_mpi}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily integer, public mod\+\_\+mpi\+::id}
+
+
+
+The rank of the current MPI task. 
+
+\mbox{\Hypertarget{namespacemod__mpi_aedecb3232c9979a5c0e4d6375b20c548}\label{namespacemod__mpi_aedecb3232c9979a5c0e4d6375b20c548}} 
+\index{mod\_mpi@{mod\_mpi}!ierr@{ierr}}
+\index{ierr@{ierr}!mod\_mpi@{mod\_mpi}}
+\doxysubsubsection{\texorpdfstring{ierr}{ierr}}
+{\footnotesize\ttfamily integer, public mod\+\_\+mpi\+::ierr}
+
+
+
+A global MPI error return code. 
+
+\mbox{\Hypertarget{namespacemod__mpi_a910a3e2349c00696e5d61d22359d3401}\label{namespacemod__mpi_a910a3e2349c00696e5d61d22359d3401}} 
+\index{mod\_mpi@{mod\_mpi}!nproc@{nproc}}
+\index{nproc@{nproc}!mod\_mpi@{mod\_mpi}}
+\doxysubsubsection{\texorpdfstring{nproc}{nproc}}
+{\footnotesize\ttfamily integer, public mod\+\_\+mpi\+::nproc}
+
+
+
+The number of MPI tasks. 
+

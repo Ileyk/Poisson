@@ -1,0 +1,5 @@
+<map id="mod_poisson::invert_tgl_inf" name="mod_poisson::invert_tgl_inf">
+<area shape="rect" id="node1" title="Invert triangular inferior matrix Source: https://math.stackexchange.com/questions/1003801/inverse&#45;of..." alt="" coords="5,23,144,65"/>
+<area shape="rect" id="node2" href="$namespacemod__poisson.html#afa7d2b65f1777551146aecb13fb068f9" title="Compute product of 2 square matrix A and B." alt="" coords="192,5,339,32"/>
+<area shape="rect" id="node3" href="$namespacemod__mpi.html#af4e80516058ccbe43163cb6f539b2c97" title="Exit MPI&#45;AMRVAC with an error message." alt="" coords="201,56,330,83"/>
+</map>

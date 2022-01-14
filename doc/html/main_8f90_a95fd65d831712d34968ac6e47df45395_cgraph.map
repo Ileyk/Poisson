@@ -1,0 +1,20 @@
+<map id="poisson" name="poisson">
+<area shape="rect" id="node1" title=" " alt="" coords="5,183,72,209"/>
+<area shape="rect" id="node2" href="$namespacemod__mpi.html#ade103aa8cb961590f1f838b06b9adcab" title="Finalize (or shutdown) the MPI environment." alt="" coords="121,5,273,32"/>
+<area shape="rect" id="node3" href="$namespacemod__poisson.html#acbcfb48a78b2d8f1941e08889a416fbb" title="First guess for potential f." alt="" coords="120,56,275,83"/>
+<area shape="rect" id="node4" href="$namespacemod__init.html#a41648636c4461680eb7d11d39313bb98" title="Initialize w scalar field on grid The spatial averaged (i) does not play any role in the Poisson equa..." alt="" coords="149,107,245,133"/>
+<area shape="rect" id="node5" href="$namespacemod__mpi.html#acc921ad615d1ce768a6aa549d7e73d0b" title="Initialize the MPI environment." alt="" coords="577,208,705,235"/>
+<area shape="rect" id="node6" href="$namespacemod__mpi.html#af4e80516058ccbe43163cb6f539b2c97" title="Exit MPI&#45;AMRVAC with an error message." alt="" coords="789,309,918,336"/>
+<area shape="rect" id="node7" href="$namespacemod__grid.html#a70aff01bfb1fd7bfc3cfeb884267e782" title="Make 1D uniform Cartesian mesh." alt="" coords="126,436,269,463"/>
+<area shape="rect" id="node8" href="$namespacemod__io.html#a96029071c901f3afd0b2d6e514144dd5" title="Serial writing of outputs." alt="" coords="348,512,476,539"/>
+<area shape="rect" id="node9" href="$namespacemod__poisson.html#af1d0dc635caea2e3ae630cac8c6c0c7e" title="Solver using Gauss&#45;Seidel method Find f given w (e.g. find grav potential given density mass)" alt="" coords="126,335,269,361"/>
+<area shape="rect" id="node10" href="$namespacemod__poisson.html#af2f5e1316cbfe3086424082c1ae014e7" title="Specify analytic solution to be compared to by hand." alt="" coords="323,360,501,387"/>
+<area shape="rect" id="node11" href="$namespacemod__poisson.html#aaad1234d127daedaefcb825034374ad0" title="Compute product of square matrix A by vector X and output Y." alt="" coords="567,259,714,285"/>
+<area shape="rect" id="node12" href="$namespacemod__poisson.html#ac864a692baef24f1eca65eb29c6ba32c" title="Compute the operator T to be used in the RHS in the solver, to be multiplied w/ x^n and/or x^{n+1} (f..." alt="" coords="323,461,501,488"/>
+<area shape="rect" id="node17" href="$namespacemod__poisson.html#a21b860f2bc70dff6c91cbf2520c23e91" title="Compute residual as relative difference w.r.t. solution @ previous step, based on quadratic norm divi..." alt="" coords="323,411,501,437"/>
+<area shape="rect" id="node18" href="$namespacemod__poisson.html#a54df559c727b49f9c137ef8adb5ea40b" title="Compute right hand side term i.e. the source (e.g. 4 pi rho) N.B.: d1 and dt necessary for &quot;time&quot; met..." alt="" coords="337,309,487,336"/>
+<area shape="rect" id="node13" href="$namespacemod__poisson.html#a99b4ffdba7667df020aaeab61a76b330" title="Decompose Laplacian operator into diagonal, triangular inferior and triangular superior parts." alt="" coords="567,478,714,519"/>
+<area shape="rect" id="node14" href="$namespacemod__poisson.html#afa7d2b65f1777551146aecb13fb068f9" title="Compute product of 2 square matrix A and B." alt="" coords="780,481,927,508"/>
+<area shape="rect" id="node15" href="$namespacemod__poisson.html#a07b01f175e15718a01f02c42fe8cfec0" title="Define 1st order Laplacian operator To do:" alt="" coords="549,427,732,453"/>
+<area shape="rect" id="node16" href="$namespacemod__poisson.html#a2b227bace4d58eec97d2297ed5ad3f37" title="Invert triangular inferior matrix Source: https://math.stackexchange.com/questions/1003801/inverse&#45;of..." alt="" coords="571,361,710,402"/>
+</map>

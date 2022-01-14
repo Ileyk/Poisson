@@ -1,0 +1,77 @@
+\hypertarget{namespacemod__grid}{}\doxysection{mod\+\_\+grid Module Reference}
+\label{namespacemod__grid}\index{mod\_grid@{mod\_grid}}
+
+
+Grid (short description)  
+
+
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemod__grid_a70aff01bfb1fd7bfc3cfeb884267e782}{make\+\_\+grid}} (N1, min1, max1, x)
+\begin{DoxyCompactList}\small\item\em Make 1D uniform Cartesian mesh. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Grid (short description) 
+
+Longer description of the module. This {\itshape module} gathers {\bfseries{all subroutines}} linked to the grid.\hypertarget{namespacemod__grid_autotoc_md0}{}\doxyparagraph{Example}\label{namespacemod__grid_autotoc_md0}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{call make\_grid(200,-\/0.5d0,0.5d0,x)}}
+
+\end{DoxyCode}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]
+\begin{DoxyItemize}
+\item 2D and 3D
+\item cylindrical, spherical and more
+\item adaptive meshes 
+\end{DoxyItemize}\end{DoxyRefDesc}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{namespacemod__grid_a70aff01bfb1fd7bfc3cfeb884267e782}\label{namespacemod__grid_a70aff01bfb1fd7bfc3cfeb884267e782}} 
+\index{mod\_grid@{mod\_grid}!make\_grid@{make\_grid}}
+\index{make\_grid@{make\_grid}!mod\_grid@{mod\_grid}}
+\doxysubsubsection{\texorpdfstring{make\_grid()}{make\_grid()}}
+{\footnotesize\ttfamily subroutine, public mod\+\_\+grid\+::make\+\_\+grid (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{N1,  }\item[{double precision, intent(in)}]{min1,  }\item[{double precision, intent(in)}]{max1,  }\item[{double precision, dimension(\+:), intent(out), allocatable}]{x }\end{DoxyParamCaption})}
+
+
+
+Make 1D uniform Cartesian mesh. 
+
+Longer description, maybe even lenghty, which could span several lines and make the reader asleep very quickly. This is similar to \mbox{\hyperlink{namespacemod__poisson_acbcfb48a78b2d8f1941e08889a416fbb}{mod\+\_\+poisson\+::frst\+\_\+gss()}}. 
+\begin{DoxyParams}{Parameters}
+{\em N1} & number of cells in direction \# 1 \\
+\hline
+{\em min1} & minimum edge of direction \# 1 \\
+\hline
+{\em max1} & maximum edge of direction \# 1 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array of positions for cell centers 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{namespacemod__mpi_acc921ad615d1ce768a6aa549d7e73d0b}{mod\+\_\+init\+::init\+\_\+mpi()}} and \mbox{\hyperlink{namespacemod__poisson_af2f5e1316cbfe3086424082c1ae014e7}{mod\+\_\+poisson\+::get\+\_\+analytic()}} 
+\end{DoxySeeAlso}
+\begin{DoxyNote}{Note}
+PIF 
+\end{DoxyNote}
+\begin{DoxyAttention}{Attention}
+PAF 
+\end{DoxyAttention}
+\begin{DoxyWarning}{Warning}
+POUF 
+\end{DoxyWarning}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{namespacemod__grid_a70aff01bfb1fd7bfc3cfeb884267e782_icgraph}
+\end{center}
+\end{figure}

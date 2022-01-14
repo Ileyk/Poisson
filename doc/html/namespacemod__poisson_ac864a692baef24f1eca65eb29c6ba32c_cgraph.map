@@ -1,0 +1,8 @@
+<map id="mod_poisson::get_operator" name="mod_poisson::get_operator">
+<area shape="rect" id="node1" title="Compute the operator T to be used in the RHS in the solver, to be multiplied w/ x^n and/or x^{n+1} (f..." alt="" coords="5,122,184,149"/>
+<area shape="rect" id="node2" href="$namespacemod__poisson.html#a99b4ffdba7667df020aaeab61a76b330" title="Decompose Laplacian operator into diagonal, triangular inferior and triangular superior parts." alt="" coords="250,5,397,47"/>
+<area shape="rect" id="node3" href="$namespacemod__poisson.html#afa7d2b65f1777551146aecb13fb068f9" title="Compute product of 2 square matrix A and B." alt="" coords="463,154,609,181"/>
+<area shape="rect" id="node4" href="$namespacemod__poisson.html#a07b01f175e15718a01f02c42fe8cfec0" title="Define 1st order Laplacian operator To do:" alt="" coords="232,122,415,149"/>
+<area shape="rect" id="node5" href="$namespacemod__poisson.html#a2b227bace4d58eec97d2297ed5ad3f37" title="Invert triangular inferior matrix Source: https://math.stackexchange.com/questions/1003801/inverse&#45;of..." alt="" coords="254,173,393,215"/>
+<area shape="rect" id="node6" href="$namespacemod__mpi.html#af4e80516058ccbe43163cb6f539b2c97" title="Exit MPI&#45;AMRVAC with an error message." alt="" coords="471,209,601,235"/>
+</map>

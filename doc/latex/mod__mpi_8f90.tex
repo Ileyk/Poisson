@@ -1,0 +1,27 @@
+\hypertarget{mod__mpi_8f90}{}\doxysection{/\+Users/ielm/\+Work/\+Codes/\+Poisson/src/mod\+\_\+mpi.f90 File Reference}
+\label{mod__mpi_8f90}\index{/Users/ielm/Work/Codes/Poisson/src/mod\_mpi.f90@{/Users/ielm/Work/Codes/Poisson/src/mod\_mpi.f90}}
+\doxysubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespacemod__mpi}{mod\+\_\+mpi}}
+\begin{DoxyCompactList}\small\item\em MPI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemod__mpi_acc921ad615d1ce768a6aa549d7e73d0b}{mod\+\_\+mpi\+::init\+\_\+mpi}}
+\begin{DoxyCompactList}\small\item\em Initialize the MPI environment. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemod__mpi_ade103aa8cb961590f1f838b06b9adcab}{mod\+\_\+mpi\+::finalize\+\_\+mpi}}
+\begin{DoxyCompactList}\small\item\em Finalize (or shutdown) the MPI environment. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemod__mpi_af4e80516058ccbe43163cb6f539b2c97}{mod\+\_\+mpi\+::mpistop}} (message)
+\begin{DoxyCompactList}\small\item\em Exit MPI-\/\+AMRVAC with an error message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+integer, public \mbox{\hyperlink{namespacemod__mpi_a910a3e2349c00696e5d61d22359d3401}{mod\+\_\+mpi\+::nproc}}
+\begin{DoxyCompactList}\small\item\em The number of MPI tasks. \end{DoxyCompactList}\item 
+integer, public \mbox{\hyperlink{namespacemod__mpi_a2d1c3e15cd3253f9e6380aff1f078678}{mod\+\_\+mpi\+::id}}
+\begin{DoxyCompactList}\small\item\em The rank of the current MPI task. \end{DoxyCompactList}\item 
+type(mpi\+\_\+comm), public \mbox{\hyperlink{namespacemod__mpi_a7ee2ae36a12825399c923bcda1302400}{mod\+\_\+mpi\+::icomm}}
+\begin{DoxyCompactList}\small\item\em The MPI communicator. \end{DoxyCompactList}\item 
+integer, public \mbox{\hyperlink{namespacemod__mpi_aedecb3232c9979a5c0e4d6375b20c548}{mod\+\_\+mpi\+::ierr}}
+\begin{DoxyCompactList}\small\item\em A global MPI error return code. \end{DoxyCompactList}\end{DoxyCompactItemize}
