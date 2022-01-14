@@ -185,6 +185,7 @@ do while (eps>eps0 .and. it<Nitmax)
 
   ! To prevent from stopping @ 1st iteration if 0 ICs
   if (it>1) call get_residual_w_prv(N1,fold,f,eps)
+
   print*, it,eps, f(1), f(N1), sum(b_dl)/dble(N1), sum(f)/dble(N1)
 
   it=it+1
@@ -246,7 +247,7 @@ do while (eps>eps0 .and. it<Nitmax)
   call dot_pdct(N1,iOmin1,iOmax1,p1,Ap1,al1)
   al1=tmp/al1
 
-  print*, al1, '=', -1.d0/(2.d0*dpi*1.d-2)**2.d0
+  print*, al1, '=', 1.d0/(2.d0*(dcos(2.d0*dpi*1.d-2)-1.d0)), '-->', -1.d0/(2.d0*dpi*1.d-2)**2.d0
   ! al1=-1.d0/(2.d0*dpi*1.d-2)**2.d0
 
   f1=f0+al1*p1
@@ -309,7 +310,7 @@ double precision, intent(in) :: x(N1)
 double precision, intent(inout) :: w(N1)
 double precision, intent(inout) :: f(N1)
 double precision, parameter :: eps0=1.d-9
-integer :: i, it, Nitmax=2
+integer :: i, it, Nitmax=10
 double precision :: eps, d1, C1, C2, denom
 double precision, allocatable :: fth(:)
 double precision :: cfl, dt
@@ -328,8 +329,8 @@ else if (solver_type=='no_time_GS') then
   call solve_no_time_GS(N1,NGC,iOmin1,iOmax1,pencil,eps0,Nitmax,bc_type,x,w,f)
 else if (solver_type=='CG') then
   call solve_CG(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,pencil,eps0,Nitmax,bc_type,x,w,f)
-  print*, 'Max gap:', maxval(dabs(fth-f))
 endif
+print*, 'Max gap:', maxval(dabs(fth-f))
 stop
 
 ! Uniform grid
@@ -455,7 +456,7 @@ end subroutine get_analytic
 ! ! -----------------------------------------------------------------------------
 
 ! -----------------------------------------------------------------------------
-!> Compute residual as |Af-b|/sqrt(N)
+!> Compute residual as maxval(|Af-b|)
 ! -----------------------------------------------------------------------------
 subroutine get_residual(N1,iOmin1,iOmax1,pencil,f,b,eps)
 integer, intent(in) :: N1
@@ -477,9 +478,8 @@ do i=iOmin1,iOmax1
   do j=1,N1
     tmp=tmp+A(i,j)*f(j)
   enddo
-  eps=eps+dabs(tmp-b(i))
+  eps=max(eps,dabs(tmp-b(i)))
 enddo
-eps=dsqrt(eps/dble(N1))
 
 end subroutine get_residual
 ! -----------------------------------------------------------------------------
