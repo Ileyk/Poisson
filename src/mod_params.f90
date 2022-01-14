@@ -8,7 +8,8 @@ public :: init_par
 
 ! - - -
 
-double precision, parameter :: min1=-0.5d0, max1=0.5d0
+! double precision, parameter :: min1=-0.5d0, max1=0.5d0
+double precision, parameter :: min1=0.5d0, max1=1.5d0
 
 integer, parameter :: N1_O=100
 

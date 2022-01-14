@@ -37,11 +37,22 @@ def movie(start,end,step):
     fth=np.zeros(N1)
     x=np.zeros(N1)
 
-    xmin=-0.5
-    xmax= 0.5
-    L=xmax-xmin
+    # xmin=-0.5
+    # xmax= 0.5
+    # L=xmax-xmin
+    # for i in range(N1):
+    #     x[i]=xmin+(xmax-xmin)*(float(i)+0.5)/float(N1)
+
+    # Read x
+    input_file=output_folder+'x_'+str(0).zfill(6)+'.dat'
+    file=open(input_file)
     for i in range(N1):
-        x[i]=xmin+(xmax-xmin)*(float(i)+0.5)/float(N1)
+        tmp = file.readline()
+        x[i]=float(tmp.split()[0])
+    file.close()
+    xmin=np.min(x)
+    xmax=np.max(x)
+    L=xmax-xmin
 
     # Read rho
     input_file=output_folder+'w_'+str(0).zfill(6)+'.dat'

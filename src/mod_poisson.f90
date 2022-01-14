@@ -40,11 +40,12 @@ end subroutine frst_gss
 !> W/ Jacobi method, solve directly discretized Poisson,
 !> w/o adding pseudo-time derivative
 ! -----------------------------------------------------------------------------
-subroutine solve_no_time_Jacobi(N1,NGC,iOmin1,iOmax1,pencil,eps0,Nitmax,bc_type,x,w,f)
+subroutine solve_no_time_Jacobi(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f)
 use mod_grid
 use mod_bc
 integer, intent(in) :: N1, NGC
 integer, intent(in) :: iOmin1, iOmax1
+double precision, intent(in) :: min1, max1
 integer, intent(in) :: pencil
 double precision, intent(in) :: eps0
 integer, intent(in) :: Nitmax
@@ -69,7 +70,7 @@ do i=iOmin1,iOmax1
   enddo
 enddo
 
-call get_dx(N1,x,dx)
+call get_dx(N1,x,min1,max1,dx)
 
 b_d=0.d0
 do i=iOmin1,iOmax1
@@ -121,11 +122,12 @@ end subroutine solve_no_time_Jacobi
 !> @attention I have no clue why it is needed to add the fold(N1-2*NGC)
 !> @attention term below...
 ! -----------------------------------------------------------------------------
-subroutine solve_no_time_GS(N1,NGC,iOmin1,iOmax1,pencil,eps0,Nitmax,bc_type,x,w,f)
+subroutine solve_no_time_GS(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f)
 use mod_grid
 use mod_bc
 integer, intent(in) :: N1, NGC
 integer, intent(in) :: iOmin1, iOmax1
+double precision, intent(in) :: min1, max1
 integer, intent(in) :: pencil
 double precision, intent(in) :: eps0
 integer, intent(in) :: Nitmax
@@ -144,7 +146,7 @@ call dcmps_laplacian(N1,DLU,D,L,U)
 DL=D+L
 call invert_tgl_inf(N1,DL,DL_inv)
 
-call get_dx(N1,x,dx)
+call get_dx(N1,x,min1,max1,dx)
 
 b_dl=0.d0
 do i=iOmin1,iOmax1
@@ -203,11 +205,12 @@ end subroutine solve_no_time_GS
 !> @warning We have to work only from iOmin1 to iOmax1 here,
 !> @warning never in the boundary cells!
 ! -----------------------------------------------------------------------------
-subroutine solve_CG(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,pencil,eps0,Nitmax,bc_type,x,w,f1)
+subroutine solve_CG(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f1)
 use mod_grid
 use mod_bc
 integer, intent(in) :: N1, NGC
 integer, intent(in) :: iImin1, iImax1, iOmin1, iOmax1
+double precision, intent(in) :: min1, max1
 integer, intent(in) :: pencil
 double precision, intent(in) :: eps0
 integer, intent(in) :: Nitmax
@@ -227,7 +230,7 @@ integer :: i, it
 
 call get_laplacian(N1,pencil,A)
 
-call get_dx(N1,x,dx)
+call get_dx(N1,x,min1,max1,dx)
 
 do i=1,N1
   b(i)=dx(i)**2.d0*w(i)
@@ -247,6 +250,7 @@ do while (eps>eps0 .and. it<Nitmax)
   call dot_pdct(N1,iOmin1,iOmax1,p1,Ap1,al1)
   al1=tmp/al1
 
+  ! Test for dx=1.d-2 uniform
   print*, al1, '=', 1.d0/(2.d0*(dcos(2.d0*dpi*1.d-2)-1.d0)), '-->', -1.d0/(2.d0*dpi*1.d-2)**2.d0
   ! al1=-1.d0/(2.d0*dpi*1.d-2)**2.d0
 
@@ -310,7 +314,7 @@ double precision, intent(in) :: x(N1)
 double precision, intent(inout) :: w(N1)
 double precision, intent(inout) :: f(N1)
 double precision, parameter :: eps0=1.d-9
-integer :: i, it, Nitmax=10
+integer :: i, it, Nitmax=5000
 double precision :: eps, d1, C1, C2, denom
 double precision, allocatable :: fth(:)
 double precision :: cfl, dt
@@ -324,11 +328,11 @@ call get_analytic(N1,min1,max1,x,fth)
 call save_vec(N1,0,'fth_',fth)
 
 if      (solver_type=='no_time_Jacobi') then
-  call solve_no_time_Jacobi(N1,NGC,iOmin1,iOmax1,pencil,eps0,Nitmax,bc_type,x,w,f)
+  call solve_no_time_Jacobi(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f)
 else if (solver_type=='no_time_GS') then
-  call solve_no_time_GS(N1,NGC,iOmin1,iOmax1,pencil,eps0,Nitmax,bc_type,x,w,f)
+  call solve_no_time_GS(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f)
 else if (solver_type=='CG') then
-  call solve_CG(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,pencil,eps0,Nitmax,bc_type,x,w,f)
+  call solve_CG(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f)
 endif
 print*, 'Max gap:', maxval(dabs(fth-f))
 stop
@@ -456,7 +460,7 @@ end subroutine get_analytic
 ! ! -----------------------------------------------------------------------------
 
 ! -----------------------------------------------------------------------------
-!> Compute residual as maxval(|Af-b|)
+!> Compute residual as norm infinite |Af-b|_{inf}=maxval(|Af-b|)
 ! -----------------------------------------------------------------------------
 subroutine get_residual(N1,iOmin1,iOmax1,pencil,f,b,eps)
 integer, intent(in) :: N1

@@ -41,6 +41,7 @@ contains
 !> @warning POUF
 ! -----------------------------------------------------------------------------
 subroutine make_grid(N1,NGC,iImin1,iImax1,min1,max1,x)
+use mod_io
 integer, intent(in) :: N1
 integer, intent(in) :: NGC
 integer, intent(in) :: iImin1, iImax1
@@ -48,13 +49,32 @@ double precision, intent(in) :: min1, max1
 double precision, allocatable, intent(out) :: x(:)
 integer :: i
 double precision :: dx
+double precision :: q ! , dxold
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 allocate(x(N1))
+
 dx=(max1-min1)/dble(N1-2*NGC)
 do i=iImin1,iImax1
   x(i)=min1+dx*(i-0.5-NGC)
 enddo
+
+! q=(max1/min1)**(1.d0/dble(N1-2*NGC))
+! print*, q
+! stop
+! dx=min1*(q-1.d0)/q
+! x(1)=min1-0.5d0*dx
+! ! dxold=dx/q
+! do i=iImin1+1,iImax1
+!   x(i)=x(i-1)+dx*0.5d0+dx*q*0.5d0
+!   dx=dx*q
+!   ! dxold=dx
+!   print*, x(i)
+! enddo
+! ! x(iImax1)=max1+0.5d0*dx*q
+! ! stop
+
+call save_vec(N1,0,'x_',x)
 
 end subroutine make_grid
 ! -----------------------------------------------------------------------------
@@ -64,11 +84,13 @@ end subroutine make_grid
 !>
 !> @warning Include ghost cells
 ! -----------------------------------------------------------------------------
-subroutine get_dx(N1,x,dx)
+subroutine get_dx(N1,x,min1,max1,dx)
 integer, intent(in) :: N1
 double precision, intent(in) :: x(N1)
+double precision, intent(in) :: min1, max1
 double precision, intent(out) :: dx(N1)
 integer :: i
+double precision :: q
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 dx(1)=x(2)-x(1)
@@ -77,6 +99,15 @@ do i=2,N1-1
 enddo
 dx(N1)=x(N1)-x(N1-1)
 ! dx=1.d-2 ! tmp
+
+! q=(max1/min1)**(1.d0/dble(N1-2*1))
+! dx(1)=min1*(q-1.d0)
+! ! x(1)=min1-0.5d0*dx/q
+! do i=2,N1
+!   dx(i)=dx(i-1)*q
+!   ! x(i)=min1+dx*(i-0.5-NGC)
+! enddo
+! ! x(iImax1)=max1+0.5d0*dx*q
 
 end subroutine get_dx
 ! -----------------------------------------------------------------------------
