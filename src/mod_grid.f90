@@ -60,8 +60,8 @@ do i=iImin1,iImax1
 enddo
 
 ! q=(max1/min1)**(1.d0/dble(N1-2*NGC))
-! print*, q
-! stop
+! ! print*, q
+! ! stop
 ! dx=min1*(q-1.d0)/q
 ! x(1)=min1-0.5d0*dx
 ! ! dxold=dx/q
@@ -69,7 +69,6 @@ enddo
 !   x(i)=x(i-1)+dx*0.5d0+dx*q*0.5d0
 !   dx=dx*q
 !   ! dxold=dx
-!   print*, x(i)
 ! enddo
 ! ! x(iImax1)=max1+0.5d0*dx*q
 ! ! stop

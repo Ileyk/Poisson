@@ -4,6 +4,7 @@ module mod_linal
 
 implicit none
 
+public :: mx_x_mx
 public :: mx_x_vec
 public :: dot_pdct
 
@@ -27,6 +28,29 @@ enddo
 
 end subroutine dot_pdct
 ! -----------------------------------------------------------------------------
+
+! -----------------------------------------------------------------------------
+!> Product between 2 matrix of size N1xN1.
+! -----------------------------------------------------------------------------
+subroutine mx_x_mx(N1,A,B,AB)
+integer, intent(in) :: N1
+double precision, intent(in) :: A(N1,N1), B(N1,N1)
+double precision, intent(out) :: AB(N1,N1)
+integer :: i, j, k
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+AB=0.d0
+do i=1,N1
+  do j=1,N1
+    do k=1,N1
+      AB(i,j)=AB(i,j)+A(i,k)*B(k,j)
+    enddo
+  enddo
+enddo
+
+end subroutine mx_x_mx
+! -----------------------------------------------------------------------------
+
 
 ! -----------------------------------------------------------------------------
 !> Product between matrix of size N1xN1 and vector of size N1.

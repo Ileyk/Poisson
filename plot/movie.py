@@ -96,14 +96,15 @@ def movie(start,end,step):
         # ax.set_xlim(0.,27.)
 
         ax=axs[1]
-        rel=(f-fth)/fth # relative difference
+        print(np.max(np.abs(f-fth)))
+        rel=(f-fth)/np.abs(fth) # relative difference
         plt.subplots_adjust(wspace=0.,hspace=0.2)
         ax.plot(x,rel,'o-',lw=1,color='k',alpha=0.7)
         # ax.plot(x,np.zeros(len(x)),'-',lw=1,color='k')
         ax.hlines(0.,xmin-0.1*L,xmax+0.1*L,linestyles ="-",colors ='k',lw=1)
         # ax.set_ylim(-1.1*np.max(np.abs(rel)),1.1*np.max(np.abs(rel)))
         ax.set_xlim(xmin-0.05*L,xmax+0.05*L)
-        ax.set_ylim(-0.0001,0.0001)
+        ax.set_ylim(-0.01,0.01)
         ax.set_ylabel('Relative difference')
 
         fig.set_size_inches(18,9)

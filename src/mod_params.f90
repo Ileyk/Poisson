@@ -9,13 +9,13 @@ public :: init_par
 ! - - -
 
 ! double precision, parameter :: min1=-0.5d0, max1=0.5d0
-double precision, parameter :: min1=0.5d0, max1=1.5d0
+double precision, parameter :: min1=1.d0, max1=2.d0
 
 integer, parameter :: N1_O=100
 
-character(len=std_len), parameter :: solver_type="CG"
+character(len=std_len), parameter :: solver_type="BiCGSTAB"
 
-character(len=std_len), parameter :: bc_type="periodic"
+character(len=std_len), parameter :: bc_type="usr"
 
 integer, parameter :: pencil=3
 
@@ -39,7 +39,7 @@ contains
 subroutine check_par
 implicit none
 
-! if (pencil/=3) call mpistop("pencil/=3 not implemented yet")
+if (pencil/=3 .and. pencil/=5) call mpistop("pencil/=3,5 not implemented yet")
 
 end subroutine check_par
 ! -----------------------------------------------------------------------------
