@@ -17,6 +17,11 @@ character(len=std_len), parameter :: solver_type="BiCGSTAB"
 
 character(len=std_len), parameter :: bc_type="usr"
 
+character(len=std_len), parameter :: grid_type="stretched"
+
+!> Beware, the smaller the pencil, the more stable BiCGSTAB
+!> => trick could be to CV 1st w/ pencil=3 and then,
+!> keep going w/ pencil=5 (etc if higher order needed)
 integer, parameter :: pencil=3
 
 ! - - -
@@ -39,7 +44,11 @@ contains
 subroutine check_par
 implicit none
 
-if (pencil/=3 .and. pencil/=5) call mpistop("pencil/=3,5 not implemented yet")
+if (pencil/=3 .and. pencil/=5) &
+  call mpistop("pencil/=3,5 not implemented yet")
+
+if (grid_type=='stretched' .and. bc_type=='periodic') &
+  call mpistop("BCs cannot be periodic if stretched grid")
 
 end subroutine check_par
 ! -----------------------------------------------------------------------------

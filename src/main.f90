@@ -24,7 +24,7 @@ call check_par
 
 call init_par
 
-call make_grid(N1_I,NGC,iImin1,iImax1,min1,max1,x)
+call make_grid(N1_I,NGC,iImin1,iImax1,min1,max1,grid_type,x)
 
 call init(N1_I,min1,max1,x,w)
 
@@ -32,7 +32,7 @@ call init(N1_I,min1,max1,x,w)
 
 call save_vec(N1_I,0,'w_',w)
 
-call solver(N1_I,NGC,iOmin1,iOmax1,min1,max1,pencil,solver_type,bc_type,x,w)
+call solver(N1_I,NGC,iOmin1,iOmax1,min1,max1,pencil,solver_type,bc_type,grid_type,x,w)
 
 call finalize_MPI
 

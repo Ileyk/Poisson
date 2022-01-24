@@ -12,16 +12,16 @@
 !> @see https://en.wikipedia.org/wiki/Finite_difference_coefficient
 !> For a basic test, you can also use this website:
 !> @see https://web.media.mit.edu/~crtaylor/calculator.html
-!> For video tutorials to adapt to 2D, see 
+!> For video tutorials to adapt to 2D, see
 !> @see https://www.youtube.com/watch?v=i0f2DegLBN8&ab_channel=SandipMazumder
 !> @see https://www.youtube.com/watch?v=zNBkvYr5CNA&ab_channel=EMPossible
 ! -----------------------------------------------------------------------------
 program laplacian_coeff
 implicit none
 
-integer, parameter :: pencil=5
-integer, parameter :: n=2
-integer, parameter :: N0=10
+integer, parameter :: pencil=5 ! input
+integer, parameter :: n=2 ! input
+integer, parameter :: N0=10 ! fiducial, not to be changed
 integer :: NGC, N1
 double precision, allocatable :: x(:)
 double precision, allocatable  :: DLU(:,:)
@@ -50,12 +50,11 @@ print*, '---------------'
 print*, 'Uniform grid - classic coefficients (see @)'
 print*, '---------------'
 print*, ' '
-do i=NGC+1,N1-NGC
+i=NGC+1
 do j=i-NGC,i+NGC ! Plot only non-zero terms
   print*, DLU(i,j)*(x(2)-x(1))**dble(n)
 enddo
 print*, ' '
-enddo
 
 ! print*, '---------------'
 ! print*, ' '

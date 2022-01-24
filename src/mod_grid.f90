@@ -40,12 +40,13 @@ contains
 !> @attention PAF
 !> @warning POUF
 ! -----------------------------------------------------------------------------
-subroutine make_grid(N1,NGC,iImin1,iImax1,min1,max1,x)
+subroutine make_grid(N1,NGC,iImin1,iImax1,min1,max1,grid_type,x)
 use mod_io
 integer, intent(in) :: N1
 integer, intent(in) :: NGC
 integer, intent(in) :: iImin1, iImax1
 double precision, intent(in) :: min1, max1
+character(len=*), intent(in) :: grid_type
 double precision, allocatable, intent(out) :: x(:)
 integer :: i
 double precision :: dx
@@ -54,24 +55,36 @@ double precision :: q ! , dxold
 
 allocate(x(N1))
 
-dx=(max1-min1)/dble(N1-2*NGC)
-do i=iImin1,iImax1
-  x(i)=min1+dx*(i-0.5-NGC)
-enddo
+if      (grid_type=='uniform') then
 
-! q=(max1/min1)**(1.d0/dble(N1-2*NGC))
-! ! print*, q
-! ! stop
-! dx=min1*(q-1.d0)/q
-! x(1)=min1-0.5d0*dx
-! ! dxold=dx/q
-! do i=iImin1+1,iImax1
-!   x(i)=x(i-1)+dx*0.5d0+dx*q*0.5d0
-!   dx=dx*q
-!   ! dxold=dx
-! enddo
-! ! x(iImax1)=max1+0.5d0*dx*q
-! ! stop
+  dx=(max1-min1)/dble(N1-2*NGC)
+  do i=iImin1,iImax1
+    x(i)=min1+dx*(i-0.5-NGC)
+  enddo
+
+else if (grid_type=='stretched') then
+
+  q=(max1/min1)**(1.d0/dble(N1-2*NGC))
+  ! Lower ghost cells - - -
+  dx=min1*(q-1.d0)
+  dx=dx/q
+  x(NGC)=min1-0.5d0*dx
+  do i=NGC-1,1,-1
+    x(i)=x(i+1)-0.5d0*dx-0.5d0*dx/q
+    dx=dx/q
+  enddo
+  ! - - -
+  dx=min1*(q-1.d0)
+  dx=dx/q
+  do i=iImin1+1,iImax1
+    x(i)=x(i-1)+0.5d0*dx+0.5d0*dx*q
+    dx=dx*q
+  enddo
+
+endif
+
+! print*, x(1), x(2), x(N1-1), x(N1)
+! stop
 
 call save_vec(N1,0,'x_',x)
 
@@ -83,30 +96,39 @@ end subroutine make_grid
 !>
 !> @warning Include ghost cells
 ! -----------------------------------------------------------------------------
-subroutine get_dx(N1,x,min1,max1,dx)
+subroutine get_dx(N1,NGC,x,min1,max1,grid_type,dx)
 integer, intent(in) :: N1
+integer, intent(in) :: NGC
 double precision, intent(in) :: x(N1)
 double precision, intent(in) :: min1, max1
+character(len=*), intent(in) :: grid_type
 double precision, intent(out) :: dx(N1)
 integer :: i
-double precision :: q
+double precision :: q, dx0
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-dx(1)=x(2)-x(1)
-do i=2,N1-1
-  dx(i)=x(i+1)-x(i)
-enddo
-dx(N1)=x(N1)-x(N1-1)
-! dx=1.d-2 ! tmp
+if      (grid_type=='uniform') then
 
-! q=(max1/min1)**(1.d0/dble(N1-2*1))
-! dx(1)=min1*(q-1.d0)
-! ! x(1)=min1-0.5d0*dx/q
-! do i=2,N1
-!   dx(i)=dx(i-1)*q
-!   ! x(i)=min1+dx*(i-0.5-NGC)
-! enddo
-! ! x(iImax1)=max1+0.5d0*dx*q
+  dx(1)=x(2)-x(1)
+  do i=2,N1-1
+    dx(i)=x(i+1)-x(i)
+  enddo
+  dx(N1)=x(N1)-x(N1-1)
+  ! dx=1.d-2 ! tmp
+
+else if (grid_type=='stretched') then
+
+  q=(max1/min1)**(1.d0/dble(N1-2*1))
+  ! Lower ghost cells
+  dx0=min1*(q-1.d0)
+  do i=1,NGC
+    dx(i)=dx0/q**(dble(NGC-i+1))
+  enddo
+  do i=NGC+1,N1
+    dx(i)=dx(i-1)*q
+  enddo
+
+endif
 
 end subroutine get_dx
 ! -----------------------------------------------------------------------------

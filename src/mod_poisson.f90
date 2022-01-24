@@ -47,7 +47,7 @@ end subroutine frst_gss
 !> W/ Jacobi method, solve directly discretized Poisson,
 !> w/o adding pseudo-time derivative
 ! -----------------------------------------------------------------------------
-subroutine solve_no_time_Jacobi(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f)
+subroutine solve_no_time_Jacobi(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,grid_type,x,w,f)
 use mod_grid
 use mod_bc
 use mod_laplacian
@@ -57,7 +57,7 @@ double precision, intent(in) :: min1, max1
 integer, intent(in) :: pencil
 double precision, intent(in) :: eps0
 integer, intent(in) :: Nitmax
-character(len=*), intent(in) :: bc_type
+character(len=*), intent(in) :: bc_type, grid_type
 double precision, intent(in) :: x(N1), w(N1)
 double precision, intent(inout) :: f(N1)
 double precision :: fold(N1), dx(N1)
@@ -78,7 +78,7 @@ do i=iOmin1,iOmax1
   enddo
 enddo
 
-call get_dx(N1,x,min1,max1,dx)
+call get_dx(N1,NGC,x,min1,max1,grid_type,dx)
 
 b_d=0.d0
 do i=iOmin1,iOmax1
@@ -138,7 +138,7 @@ end subroutine solve_no_time_Jacobi
 !> @attention I have no clue why it is needed to add the fold(N1-2*NGC)
 !> @attention term below...
 ! -----------------------------------------------------------------------------
-subroutine solve_no_time_GS(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f)
+subroutine solve_no_time_GS(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,grid_type,x,w,f)
 use mod_grid
 use mod_bc
 use mod_laplacian
@@ -148,7 +148,7 @@ double precision, intent(in) :: min1, max1
 integer, intent(in) :: pencil
 double precision, intent(in) :: eps0
 integer, intent(in) :: Nitmax
-character(len=*), intent(in) :: bc_type
+character(len=*), intent(in) :: bc_type, grid_type
 double precision, intent(in) :: x(N1), w(N1)
 double precision, intent(inout) :: f(N1)
 double precision :: fold(N1), dx(N1)
@@ -163,7 +163,7 @@ call dcmps_laplacian(N1,DLU,D,L,U)
 DL=D+L
 call invert_tgl_inf(N1,DL,DL_inv)
 
-call get_dx(N1,x,min1,max1,dx)
+call get_dx(N1,NGC,x,min1,max1,grid_type,dx)
 
 b_dl=0.d0
 do i=iOmin1,iOmax1
@@ -222,7 +222,7 @@ end subroutine solve_no_time_GS
 !> @warning We have to work only from iOmin1 to iOmax1 here,
 !> @warning never in the boundary cells!
 ! -----------------------------------------------------------------------------
-subroutine solve_CG(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f1)
+subroutine solve_CG(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,grid_type,x,w,f1)
 use mod_grid
 use mod_bc
 use mod_laplacian
@@ -232,7 +232,7 @@ double precision, intent(in) :: min1, max1
 integer, intent(in) :: pencil
 double precision, intent(in) :: eps0
 integer, intent(in) :: Nitmax
-character(len=*), intent(in) :: bc_type
+character(len=*), intent(in) :: bc_type, grid_type
 double precision, intent(in) :: x(N1), w(N1)
 double precision, intent(out) :: f1(N1)
 double precision :: A(N1,N1)
@@ -248,7 +248,7 @@ integer :: i, it
 
 call get_laplacian(N1,pencil,x,A)
 
-call get_dx(N1,x,min1,max1,dx)
+call get_dx(N1,NGC,x,min1,max1,grid_type,dx)
 
 do i=1,N1
   b(i)=w(i) ! dx(i)**2.d0*
@@ -305,7 +305,7 @@ do while (eps>eps0 .and. it<Nitmax)
   ! p2(1)=(f1(1)-f0(1))/al1
   ! p2(N1)=(f1(N1)-f0(N1))/al1
 
-  ! call rm_avg(N1,NGC,min1,max1,x,dx,f1)
+  call rm_avg(N1,NGC,min1,max1,x,dx,f1)
   call save_vec(N1,it,'f_',f1) ! -sum(f1)/dble(N1))
 
   call get_residual(N1,iOmin1,iOmax1,f1,b,A,eps)
@@ -338,7 +338,7 @@ end subroutine solve_CG
 !> @see PDF document "NUMERICAL EFFICIENCY OF ITERATIVE SOLVERS FOR
 !> @see THE POISSON EQUATION USING COMPUTER CLUSTER" by J. Gościk & J. Gościk
 ! -----------------------------------------------------------------------------
-subroutine solve_BiCGSTAB(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f1)
+subroutine solve_BiCGSTAB(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,grid_type,x,w,f1)
 use mod_grid
 use mod_bc
 use mod_laplacian
@@ -348,7 +348,7 @@ double precision, intent(in) :: min1, max1
 integer, intent(in) :: pencil
 double precision, intent(in) :: eps0
 integer, intent(in) :: Nitmax
-character(len=*), intent(in) :: bc_type
+character(len=*), intent(in) :: bc_type, grid_type
 double precision, intent(in) :: x(N1), w(N1)
 double precision, intent(out) :: f1(N1)
 double precision :: A(N1,N1)
@@ -370,15 +370,27 @@ double precision :: dx(N1)
 
 call get_laplacian(N1,pencil,x,A)
 
-call get_dx(N1,x,min1,max1,dx)
+call get_dx(N1,NGC,x,min1,max1,grid_type,dx)
 
 do i=1,N1
   b(i)=w(i)
+  ! f0(i)=dexp(-((x(i)-1.5d0)/0.4d0)**2.d0)
 enddo
+! print*, f0(1), f0(2), f0(N1-1), f0(N1)
+! stop
 
+! 1st guess MUST have the right BCs
 f0=0.d0
-call save_vec(N1,0,'f_',f0)
-r0=b/100.d0
+! f0=x**4.d0/12.d0 ! -1.3d0*(x-1.5d0)
+! f0(1)=0.08167912505d0
+! f0(N1)=1.34671675005d0
+call get_bc(N1,NGC,iOmin1,iOmax1,bc_type,x,w,f0)
+call get_avg(N1,NGC,min1,max1,x,dx,f0,f_avg)
+call save_vec(N1,0,'f_',f0-f_avg)
+
+call mx_x_vec(N1,iOmin1,iOmax1,A,f0,Ap)
+r0=b-Ap
+! r0=b
 r0_star=r0
 p0  =r0
 call get_bc_BiCGSTAB_p(N1,NGC,iOmin1,iOmax1,bc_type,p0)
@@ -407,14 +419,18 @@ do while (eps>eps0 .and. it<Nitmax)
   p1=r1+beta*(p0-omega*Ap)
   call get_bc_BiCGSTAB_p(N1,NGC,iOmin1,iOmax1,bc_type,p1)
 
-  call get_bc(N1,NGC,iOmin1,iOmax1,bc_type,x,w,f1)
   ! call rm_avg(N1,NGC,min1,max1,x,dx,f1)
+  call get_bc(N1,NGC,iOmin1,iOmax1,bc_type,x,w,f1)
+  ! call get_avg(N1,NGC,min1,max1,x,dx,f1,f_avg)
+  ! f1(1)=f1(2) ! -0.00691013722d0
+  ! f1(N1)=f1(N1-1) ! -0.00691013722d0
 
   f0=f1
   r0=r1
   p0=p1
 
-  ! call rm_avg(N1,NGC,min1,max1,x,dx,f1)
+  call rm_avg(N1,NGC,min1,max1,x,dx,f1)
+  ! print*, 'avg:', f_avg
   call save_vec(N1,it,'f_',f1) ! -sum(f1)/dble(N1))
 
   call get_residual(N1,iOmin1,iOmax1,f1,b,A,eps)
@@ -428,10 +444,33 @@ end subroutine solve_BiCGSTAB
 ! -----------------------------------------------------------------------------
 
 ! -----------------------------------------------------------------------------
-!> Removes average value from scalar field f,
+!> Compute the average of scalar field f,
 !> weighted on grid x w/ spacing dx of each cell
 !>
-!> @warning Works over the full grid, including the ghost cells
+!> @warning Works only over the simulation space, not in the ghost cells
+! -----------------------------------------------------------------------------
+subroutine get_avg(N1,NGC,min1,max1,x,dx,f,f_avg)
+integer, intent(in) :: N1
+integer, intent(in) :: NGC
+double precision, intent(in) :: min1, max1
+double precision, intent(in) :: x(N1)
+double precision, intent(in) :: dx(N1)
+double precision, intent(in) :: f(N1)
+double precision, optional, intent(out) :: f_avg
+integer :: i
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+f_avg=0.d0
+do i=NGC+1,N1-NGC
+  f_avg=f_avg+f(i)*dx(i)
+enddo
+f_avg=f_avg/(max1-min1)
+end subroutine get_avg
+! -----------------------------------------------------------------------------
+
+! -----------------------------------------------------------------------------
+!> Removes average value from scalar field f in simulation space,
+!> weighted on grid x w/ spacing dx of each cell
+!>
 !> @note Might be necessary to subtract <w> before (for periodic BCs only)
 ! -----------------------------------------------------------------------------
 subroutine rm_avg(N1,NGC,min1,max1,x,dx,f)
@@ -444,14 +483,7 @@ double precision, intent(inout) :: f(N1)
 double precision :: f_avg
 integer :: i
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-! f_avg=sum(f)/dble(N1)
-f_avg=0.d0
-do i=NGC+1,N1-NGC
-  f_avg=f_avg+f(i)*dx(i)
-enddo
-f_avg=f_avg/(max1-min1)
-! print*, 'avg:', f_avg
-! stop
+call get_avg(N1,NGC,min1,max1,x,dx,f,f_avg)
 f=f-f_avg
 end subroutine rm_avg
 ! -----------------------------------------------------------------------------
@@ -460,7 +492,7 @@ end subroutine rm_avg
 !> Solver using Gauss-Seidel method
 !> Find f given w (e.g. find grav potential given density mass)
 ! -----------------------------------------------------------------------------
-subroutine solver(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,solver_type,bc_type,x,w)
+subroutine solver(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,solver_type,bc_type,grid_type,x,w)
 use mod_bc
 use mod_grid
 use mod_laplacian
@@ -468,12 +500,12 @@ integer, intent(in) :: N1, NGC
 integer, intent(in) :: iOmin1, iOmax1
 double precision, intent(in) :: min1, max1
 integer, intent(in) :: pencil
-character(len=*), intent(in) :: solver_type, bc_type
+character(len=*), intent(in) :: solver_type, bc_type, grid_type
 double precision, intent(in) :: x(N1)
 double precision, intent(inout) :: w(N1)
 double precision :: f(N1)
 double precision, parameter :: eps0=1.d-6
-integer :: i, it, Nitmax=200
+integer :: i, it, Nitmax=2000
 double precision :: eps, d1, C1, C2, denom
 double precision, allocatable :: fth(:)
 double precision :: cfl, dt
@@ -484,7 +516,7 @@ double precision :: A(N1,N1)
 integer :: j
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-call get_dx(N1,x,min1,max1,dx)
+call get_dx(N1,NGC,x,min1,max1,grid_type,dx)
 
 ! call rm_avg(N1,NGC,min1,max1,x,dx,w)
 
@@ -496,13 +528,13 @@ call save_vec(N1,0,'fth_',fth)
 ! print*, eps
 
 if      (solver_type=='no_time_Jacobi') then
-  call solve_no_time_Jacobi(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f)
+  call solve_no_time_Jacobi(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,grid_type,x,w,f)
 else if (solver_type=='no_time_GS') then
-  call solve_no_time_GS(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f)
+  call solve_no_time_GS(N1,NGC,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,grid_type,x,w,f)
 else if (solver_type=='CG') then
-  call solve_CG(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f)
+  call solve_CG(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,grid_type,x,w,f)
 else if (solver_type=='BiCGSTAB') then
-  call solve_BiCGSTAB(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,x,w,f)
+  call solve_BiCGSTAB(N1,NGC,iImin1,iImax1,iOmin1,iOmax1,min1,max1,pencil,eps0,Nitmax,bc_type,grid_type,x,w,f)
 endif
 ! print*, '- - -'
 ! do i=1,N1
@@ -620,10 +652,12 @@ do i=1,N1
   ! fth(i)=-(1.d0/(2.d0*dpi*kwv/(max1-min1))**2.d0)*dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1)))
   ! fth(i)=-(1.d0/(2.d0*dpi*kwv/(max1-min1))**2.d0)*dexp(dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))
   ! fth(i)=(1.d0/(2.d0*dpi*kwv/(max1-min1))**2.d0)/(2.d0+dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))
-  fth(i)=x(i)**3.d0/6.d0-1.5d0*x(i)**2.d0/2.d0-15.d0/24.d0
+  fth(i)=x(i)**4.d0/12.d0
+  ! fth(i)=dexp(-((x(i)-1.5d0)/0.4d0)**2.d0)
+  ! fth(i)=1.d0/x(i)+1.d0
 enddo
-! print*, fth(1), fth(N1)
-! call rm_avg(N1,NGC,min1,max1,x,dx,fth)
+print*, fth(1), fth(N1)
+call rm_avg(N1,NGC,min1,max1,x,dx,fth)
 ! print*, fth(1), fth(N1)
 ! stop
 end subroutine get_analytic
