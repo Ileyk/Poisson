@@ -1,5 +1,4 @@
-WTF
-# Poisson
-Solvers for Poisson equation
+# Poisson 2D
+Solvers for Poisson equation in 2D
 
-This is an elementary 1D Cartesian framework to implement, validate and benchmark solvers for Poisson equation
+The goal is now to extend the Laplacian to 2D grids compatible w/ the BiCGSTAB solver
