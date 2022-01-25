@@ -18,6 +18,30 @@ contains
 ! -----------------------------------------------------------------------------
 subroutine get_laplacian(N1,pencil,x,DLU)
 use mod_linal
+use mod_metric
+use mod_csts, only : dpi
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+! Functions of r only
+abstract interface
+  function f_r (r)
+     double precision :: f_r
+     double precision, intent (in) :: r
+  end function f_r
+end interface
+procedure (f_r), pointer :: rr => null ()
+procedure (f_r), pointer :: rr_dr => null ()
+! Functions of r and theta
+abstract interface
+  function f_rt (r,t)
+     double precision :: f_rt
+     double precision, intent (in) :: r, t
+  end function f_rt
+end interface
+procedure (f_rt), pointer :: det_root => null ()
+procedure (f_rt), pointer :: det_root_dr => null ()
+procedure (f_rt), pointer :: f1 => null ()
+procedure (f_rt), pointer :: f2 => null ()
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 integer, intent(in) :: N1
 integer, intent(in) :: pencil
 double precision, intent(in) :: x(N1)
@@ -30,7 +54,13 @@ double precision :: deriv(pencil)
 double precision :: coeff(pencil)
 double precision :: tmp, a1, a2
 integer :: i, j, NGC
+double precision, parameter :: th0=dpi/2.d0
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+rr => rr_
+rr_dr => rr_dr_
+det_root => det_root_
+det_root_dr => det_root_dr_
 
 NGC=(pencil-1)/2
 
@@ -45,9 +75,22 @@ do i=NGC+1,N1-NGC
   ! To check this formula beforehand, use side-kick code
   ! laplacian_coeff.f90
   if (pencil==3) then
-      coeff(1)=2.d0/(lbd(1)*(lbd(1)-lbd(3)))
-      coeff(2)=2.d0/(lbd(1)*lbd(3))
-      coeff(3)=2.d0/(lbd(3)*(lbd(3)-lbd(1)))
+      ! coeff(1)=2.d0/(lbd(1)*(lbd(1)-lbd(3)))
+      ! coeff(2)=2.d0/(lbd(1)*lbd(3))
+      ! coeff(3)=2.d0/(lbd(3)*(lbd(3)-lbd(1)))
+
+      ! Flat 1D spherical along r
+      ! coeff(1)= ( 2.d0*x(i)*(x(i)-lbd(3))/(lbd(1)*(lbd(1)-lbd(3))) ) / x(i)**2.d0
+      ! coeff(2)= ( (2.d0*x(i)/(lbd(3)-lbd(1)))*((x(i)-lbd(3))/lbd(1)-(x(i)-lbd(1))/lbd(3)) ) / x(i)**2.d0
+      ! coeff(3)= ( 2.d0*x(i)*(x(i)-lbd(1))/(lbd(3)*(lbd(3)-lbd(1))) ) / x(i)**2.d0
+
+      ! 1D Cartesian, spherical or any other metric along direction r
+      coeff(1)= ( rr(x(i)) - 0.5d0*lbd(3) * (det_root_dr(x(i),th0)*rr(x(i))/det_root(x(i),th0)+rr_dr(x(i))) ) / &
+                (lbd(1)*0.5d0*(lbd(1)-lbd(3)))
+      coeff(3)= ( rr(x(i)) - 0.5d0*lbd(1) * (det_root_dr(x(i),th0)*rr(x(i))/det_root(x(i),th0)+rr_dr(x(i))) ) / &
+                (lbd(3)*0.5d0*(lbd(3)-lbd(1)))
+      coeff(2)=-coeff(1)-coeff(3)
+
   else if (pencil==5) then
     a1=-(lbd(1)+lbd(2)+lbd(4)+lbd(5))
     a2=lbd(1)*lbd(2)+lbd(1)*lbd(4)+lbd(1)*lbd(5)+lbd(2)*lbd(4)+lbd(2)*lbd(5)+lbd(4)*lbd(5)

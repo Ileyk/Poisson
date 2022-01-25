@@ -1,7 +1,8 @@
 ! -----------------------------------------------------------------------------
 !> This code is a side-kick for the main Poisson one, in src/.
 !> Its goal is to verify pen-and-paper formulas for derivatives of order n
-!> w/ accuracy pencil (i.e. closest neighbors NGC on each side).
+!> w/ accuracy pencil (i.e. closest neighbors NGC on each side)
+!> on a 1D Cartesian but not necessarily uniform grid.
 !> The goal is to check the pen-and-paper formula against the much more
 !> computationally-demanding method used here and if it matches,
 !> implement the pen-and-paper formula in the main Poisson program.
@@ -15,10 +16,17 @@
 !> For video tutorials to adapt to 2D, see
 !> @see https://www.youtube.com/watch?v=i0f2DegLBN8&ab_channel=SandipMazumder
 !> @see https://www.youtube.com/watch?v=zNBkvYr5CNA&ab_channel=EMPossible
+!> @warning I tried to expand it to non-Cartesian by providing a space metric
+!> @warning but doing so, we no longer deal w/ a Vandermonde matrix since
+!> @warning the combinatory factor has to be put back on the LHS,
+!> @warning where it comes from, but only on 1 row
+!> @warning Update: no, I don't think it is needed `(see 1.2.1 of my course),
+!> @warning we can still work w/ a Vandermonde matrix but on the RHS,
+!> @warning coefficients must be multiplied according to the general formula
+!> @warning of the Laplacian in curved metric`
 ! -----------------------------------------------------------------------------
 program laplacian_coeff
 implicit none
-
 integer, parameter :: pencil=5 ! input
 integer, parameter :: n=2 ! input
 integer, parameter :: N0=10 ! fiducial, not to be changed
@@ -29,7 +37,9 @@ double precision, allocatable  :: coeff(:,:)
 double precision :: lbd(pencil)
 double precision :: tmp
 double precision :: coeff_i(pencil)
+! double precision :: metric_inv, det_root
 integer :: i,j,k
+! integer, parameter :: r_=1, t_=2, p_=3
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if (pencil/=3 .and. pencil/=5) call mpistop("pencil/=3,5 not implemented yet")

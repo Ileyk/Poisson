@@ -652,14 +652,13 @@ do i=1,N1
   ! fth(i)=-(1.d0/(2.d0*dpi*kwv/(max1-min1))**2.d0)*dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1)))
   ! fth(i)=-(1.d0/(2.d0*dpi*kwv/(max1-min1))**2.d0)*dexp(dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))
   ! fth(i)=(1.d0/(2.d0*dpi*kwv/(max1-min1))**2.d0)/(2.d0+dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))
-  fth(i)=x(i)**4.d0/12.d0
+  ! fth(i)=x(i)**4.d0/12.d0
   ! fth(i)=dexp(-((x(i)-1.5d0)/0.4d0)**2.d0)
-  ! fth(i)=1.d0/x(i)+1.d0
+  fth(i)=1.d0/x(i)+1.d0
 enddo
-print*, fth(1), fth(N1)
-call rm_avg(N1,NGC,min1,max1,x,dx,fth)
 ! print*, fth(1), fth(N1)
 ! stop
+call rm_avg(N1,NGC,min1,max1,x,dx,fth)
 end subroutine get_analytic
 ! -----------------------------------------------------------------------------
 

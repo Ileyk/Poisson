@@ -32,9 +32,9 @@ do i=1,N1
   !      (dcos(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))**2.d0*dexp(dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))
   ! w(i)= dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1)))/(2.d0+dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))**2.d0+&
   !       2.d0*(dcos(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))**2.d0/(2.d0+dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))**3.d0
-  w(i)=x(i)**2.d0
+  ! w(i)=x(i)**2.d0
   ! w(i)=(dexp(-((x(i)-1.5d0)/0.4d0)**2.d0))*(-2.d0/0.4d0**2.d0+(4.d0/0.4d0**2.d0)*((x(i)-1.5d0)/0.4d0)**2.d0)
-  ! w(i)=0.d0
+  w(i)=0.d0
 enddo
 
 ! w_avg=sum(w)/N1
