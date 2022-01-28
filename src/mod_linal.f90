@@ -13,17 +13,20 @@ contains
 ! -----------------------------------------------------------------------------
 !> Dot product between 2 vectors of size N1
 ! -----------------------------------------------------------------------------
-subroutine dot_pdct(N1,iImin1,iImax1,a,b,ab)
-integer, intent(in) :: N1
-integer, intent(in) :: iImin1, iImax1
-double precision, intent(in) :: a(N1), b(N1)
+subroutine dot_pdct(N,N1,N2,NGC,a,b,ab)
+integer, intent(in) :: N, N1, N2, NGC
+double precision, intent(in) :: a(N), b(N)
 double precision, intent(out) :: ab
-integer :: i
+integer :: p, k
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ab=0.d0
-do i=iImin1,iImax1
-  ab=ab+a(i)*b(i)
+! do p=1,N2-NGC-2
+! do k=(p-1+NGC)*N1+NGC+1,(p-1+NGC)*N1+N1-NGC
+do p=NGC,N2-NGC-1
+do k=p*N1+NGC+1,p*N1+N1-NGC
+  ab=ab+a(k)*b(k)
+enddo
 enddo
 
 end subroutine dot_pdct
@@ -58,19 +61,20 @@ end subroutine mx_x_mx
 !> @warning Perform the computation only between indices iOmin1 & iOmax1,
 !> @warning not in the ghost cells.
 ! -----------------------------------------------------------------------------
-subroutine mx_x_vec(N1,iOmin1,iOmax1,A,x,y)
-integer, intent(in) :: N1
-integer, intent(in) :: iOmin1,iOmax1
-double precision, intent(in) :: A(N1,N1), x(N1)
-double precision, intent(out) :: y(N1)
-integer :: i, j
+subroutine mx_x_vec(N,N1,N2,NGC,A,x,y)
+integer, intent(in) :: N, N1, N2, NGC
+double precision, intent(in) :: A(N,N), x(N)
+double precision, intent(out) :: y(N)
+integer :: i, j, p, k
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 y=0.d0
-do i=iOmin1,iOmax1
-  do j=1,N1
-    y(i)=y(i)+A(i,j)*x(j)
+do p=NGC,N2-NGC-1
+do k=p*N1+NGC+1,p*N1+N1-NGC
+  do j=1,N
+    y(k)=y(k)+A(k,j)*x(j)
   enddo
+enddo
 enddo
 
 end subroutine mx_x_vec

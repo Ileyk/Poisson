@@ -17,7 +17,7 @@ function det_root_ (r,t)
 double precision :: det_root_
 double precision, intent(in) :: r, t
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-det_root_=r**2.d0*(dsin(t))**2.d0
+det_root_=1.d0 ! r**2.d0*(dsin(t))**2.d0
 return
 end function det_root_
 ! -----------------------------------------------------------------------------
@@ -29,7 +29,7 @@ function det_root_dr_ (r,t)
 double precision :: det_root_dr_
 double precision, intent(in) :: r, t
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-det_root_dr_=2.d0*r*(dsin(t))**2.d0
+det_root_dr_=0.d0 ! 2.d0*r*(dsin(t))**2.d0
 return
 end function det_root_dr_
 ! -----------------------------------------------------------------------------
