@@ -38,8 +38,8 @@ do j=1,N2
   !         dexp(dsin(2.d0*dpi*kwv*((x(i,j,1)-min1)/(max1-min1))))*&
   !         dexp(dcos(2.d0*dpi*kwv*((x(i,j,2)-min2)/(max2-min2))))
   ! w(i,j)=x(i,j,1)**2.d0+x(i,j,2)**2.d0
-  ! w(i,j)=0.d0
-  call RANDOM_NUMBER(w(i,j))
+  w(i,j)=0.d0
+  ! call RANDOM_NUMBER(w(i,j))
 
   ! w(i)= dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1)))/(2.d0+dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))**2.d0+&
   !       2.d0*(dcos(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))**2.d0/(2.d0+dsin(2.d0*dpi*kwv*((x(i)-min1)/(max1-min1))))**3.d0

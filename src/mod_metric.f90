@@ -1,8 +1,10 @@
 ! -----------------------------------------------------------------------------
 !> Module where you specify the functions corresponding (i) to each element
-!> of the invert of the space metric gm (i.e. gm^{rr}, gm^{rt}, etc)
+!> of the invert of the space metric gm (i.e. gm^{rr}, gm^{tt}, etc)
 !> and (ii) to the determinant of the space metric.
 !> We also specify the required derivatives.
+!>
+!> @warning For now, valid for any metric WITHOUT non-diagonal (i.e. crossed) terms
 ! -----------------------------------------------------------------------------
 module mod_metric
 
@@ -15,9 +17,9 @@ contains
 ! -----------------------------------------------------------------------------
 function det_root_ (r,t)
 double precision :: det_root_
-double precision, intent(in) :: r, t
+double precision, intent(in) :: r,t
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-det_root_=1.d0 ! r**2.d0*(dsin(t))**2.d0
+det_root_=r**2.d0*(dsin(t))
 return
 end function det_root_
 ! -----------------------------------------------------------------------------
@@ -27,19 +29,31 @@ end function det_root_
 ! -----------------------------------------------------------------------------
 function det_root_dr_ (r,t)
 double precision :: det_root_dr_
-double precision, intent(in) :: r, t
+double precision, intent(in) :: r,t
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-det_root_dr_=0.d0 ! 2.d0*r*(dsin(t))**2.d0
+det_root_dr_=2.d0*r*(dsin(t))
 return
 end function det_root_dr_
 ! -----------------------------------------------------------------------------
 
 ! -----------------------------------------------------------------------------
+! d(det(gm))/dt
+! -----------------------------------------------------------------------------
+function det_root_dt_ (r,t)
+double precision :: det_root_dt_
+double precision, intent(in) :: r,t
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+det_root_dt_=r**2.d0*(dcos(t))
+return
+end function det_root_dt_
+! -----------------------------------------------------------------------------
+
+! -----------------------------------------------------------------------------
 ! gm^{rr}
 ! -----------------------------------------------------------------------------
-function rr_ (r)
+function rr_ (r,t)
 double precision :: rr_
-double precision, intent(in) :: r
+double precision, intent(in) :: r,t
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 rr_=1.d0
 return
@@ -49,13 +63,38 @@ end function rr_
 ! -----------------------------------------------------------------------------
 ! d(gm^{rr})/dr
 ! -----------------------------------------------------------------------------
-function rr_dr_ (r)
+function rr_dr_ (r,t)
 double precision :: rr_dr_
-double precision, intent(in) :: r
+double precision, intent(in) :: r,t
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 rr_dr_=0.d0
 return
 end function rr_dr_
 ! -----------------------------------------------------------------------------
+
+! -----------------------------------------------------------------------------
+! gm^{tt}
+! -----------------------------------------------------------------------------
+function tt_ (r,t)
+double precision :: tt_
+double precision, intent(in) :: r,t
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+tt_=1.d0/r**2.d0
+return
+end function tt_
+! -----------------------------------------------------------------------------
+
+! -----------------------------------------------------------------------------
+! d(gm^{tt})/dt
+! -----------------------------------------------------------------------------
+function tt_dt_ (r,t)
+double precision :: tt_dt_
+double precision, intent(in) :: r,t
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+tt_dt_=0.d0
+return
+end function tt_dt_
+! -----------------------------------------------------------------------------
+
 
 end module mod_metric

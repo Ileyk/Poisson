@@ -15,21 +15,16 @@ contains
 !> @see http://www.iaeng.org/publication/WCE2017/WCE2017_pp127-129.pdf
 !> @warning Laplacian is not defined in ghost cells
 !> @warning => 1st and last NGC rows are 0.
+!> @warning For now, valid for 2D Cartesian, spherical or any metric
+!> @warning WITHOUT non-diagonal (i.e. crossed) terms
+!> @todo Account for non-diagonal (i.e. crossed) terms in metric
+!> @todo Derive formula for higher order Laplace operator
 ! -----------------------------------------------------------------------------
 subroutine get_laplacian(N,N1,N2,pencil,x,DLU)
 use mod_linal
 use mod_metric
 use mod_csts, only : dpi
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-! Functions of r only
-abstract interface
-  function f_r (r)
-     double precision :: f_r
-     double precision, intent (in) :: r
-  end function f_r
-end interface
-procedure (f_r), pointer :: rr => null ()
-procedure (f_r), pointer :: rr_dr => null ()
 ! Functions of r and theta
 abstract interface
   function f_rt (r,t)
@@ -39,8 +34,11 @@ abstract interface
 end interface
 procedure (f_rt), pointer :: det_root => null ()
 procedure (f_rt), pointer :: det_root_dr => null ()
-procedure (f_rt), pointer :: f1 => null ()
-procedure (f_rt), pointer :: f2 => null ()
+procedure (f_rt), pointer :: det_root_dt => null ()
+procedure (f_rt), pointer :: rr => null ()
+procedure (f_rt), pointer :: rr_dr => null ()
+procedure (f_rt), pointer :: tt => null ()
+procedure (f_rt), pointer :: tt_dt => null ()
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 integer, intent(in) :: N, N1, N2
 integer, intent(in) :: pencil
@@ -48,15 +46,18 @@ double precision, intent(in) :: x(N1,N2,2)
 double precision, intent(out) :: DLU(N,N)
 double precision :: lbd(2*(pencil-1)+1)
 double precision :: coeff(2*(pencil-1)+1)
-double precision :: tmp, a1, a2
+double precision :: r, t
 integer :: i, j, p, k, NGC
 double precision, parameter :: th0=dpi/2.d0
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-rr => rr_
-rr_dr => rr_dr_
 det_root => det_root_
 det_root_dr => det_root_dr_
+det_root_dt => det_root_dt_
+rr => rr_
+rr_dr => rr_dr_
+tt => tt_
+tt_dt => tt_dt_
 
 NGC=(pencil-1)/2
 
@@ -67,20 +68,24 @@ do k=p*N1+NGC+1,p*N1+N1-NGC
   j=int((k-1)/N1)+1
   i=k-(j-1)*N1
   call get_lbd(N1,N2,NGC,pencil,x,i,j,lbd)
+  r=x(i,j,1)
+  t=x(i,j,2)
   if (pencil==3) then
-    ! 1D Cartesian, spherical or any other metric along direction r
-    coeff(1)= ( rr(x(i,j,1)) - 0.5d0*lbd(3) * &
-              (det_root_dr(x(i,j,1),x(i,j,2))*rr(x(i,j,1))/det_root(x(i,j,1),x(i,j,2))+rr_dr(x(i,j,1))) ) / &
-              (lbd(1)*0.5d0*(lbd(1)-lbd(3)))
-    coeff(3)= ( rr(x(i,j,1)) - 0.5d0*lbd(1) * &
-              (det_root_dr(x(i,j,1),x(i,j,2))*rr(x(i,j,1))/det_root(x(i,j,1),x(i,j,2))+rr_dr(x(i,j,1))) ) / &
-              (lbd(3)*0.5d0*(lbd(3)-lbd(1)))
-    coeff(4)= ( rr(x(i,j,1)) - 0.5d0*lbd(5) * &
-              (det_root_dr(x(i,j,1),x(i,j,2))*rr(x(i,j,1))/det_root(x(i,j,1),x(i,j,2))+rr_dr(x(i,j,1))) ) / &
-              (lbd(4)*0.5d0*(lbd(4)-lbd(5)))
-    coeff(5)= ( rr(x(i,j,1)) - 0.5d0*lbd(4) * &
-              (det_root_dr(x(i,j,1),x(i,j,2))*rr(x(i,j,1))/det_root(x(i,j,1),x(i,j,2))+rr_dr(x(i,j,1))) ) / &
-              (lbd(5)*0.5d0*(lbd(5)-lbd(4)))
+    ! Neighbours in direction 1
+    coeff(1)= ( 2.d0*rr(r,t) - lbd(3) * &
+              (det_root_dr(r,t)*rr(r,t)/det_root(r,t)+rr_dr(r,t)) ) / &
+              (lbd(1)*(lbd(1)-lbd(3)))
+    coeff(3)= ( 2.d0*rr(r,t) - lbd(1) * &
+              (det_root_dr(r,t)*rr(r,t)/det_root(r,t)+rr_dr(r,t)) ) / &
+              (lbd(3)*(lbd(3)-lbd(1)))
+    ! Neighbours in direction 2
+    coeff(4)= ( 2.d0*tt(r,t) - lbd(5) * &
+              (det_root_dt(r,t)*tt(r,t)/det_root(r,t)+tt_dt(r,t)) ) / &
+              (lbd(4)*(lbd(4)-lbd(5)))
+    coeff(5)= ( 2.d0*tt(r,t) - lbd(4) * &
+              (det_root_dt(r,t)*tt(r,t)/det_root(r,t)+tt_dt(r,t)) ) / &
+              (lbd(5)*(lbd(5)-lbd(4)))
+    ! Self-coefficient
     coeff(2)=-coeff(1)-coeff(3)-coeff(4)-coeff(5)
   else if (pencil==5) then
     ! a1=-(lbd(1)+lbd(2)+lbd(4)+lbd(5))

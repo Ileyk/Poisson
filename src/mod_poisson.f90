@@ -77,7 +77,8 @@ double precision, intent(in) :: min2, max2
 integer, intent(in) :: pencil
 double precision, intent(in) :: eps0
 integer, intent(in) :: Nitmax
-character(len=*), intent(in) :: bc_type, grid_type
+character(len=*), dimension(4),intent(in) :: bc_type
+character(len=*), intent(in) :: grid_type
 double precision, intent(in) :: x(N1,N2,2), w(N)
 double precision, intent(out) :: f1(N)
 double precision :: f1_fold(N1,N2)
@@ -133,7 +134,7 @@ call get_bc_BiCGSTAB_p(N,N1,N2,NGC,bc_type,p0)
 ! call get_bc(N,N1,N2,NGC,bc_type,p0)
 
 call fold(N,N1,N2,r0,r0_fold)
-call save_vec(N1,N2,0,'r_',r0_fold)
+call save_vec(N1,N2,it,'r_',r0_fold)
 
 it=1
 eps=1.d99
@@ -274,7 +275,8 @@ integer, intent(in) :: iOmin2, iOmax2
 double precision, intent(in) :: min1, max1
 double precision, intent(in) :: min2, max2
 integer, intent(in) :: pencil
-character(len=*), intent(in) :: solver_type, bc_type, grid_type
+character(len=*), dimension(4), intent(in) :: bc_type
+character(len=*), intent(in) :: solver_type, grid_type
 double precision, intent(in) :: x(N1,N2,2)
 double precision, intent(inout) :: w(N1,N2)
 double precision :: w_unfold(N1*N2)
@@ -307,12 +309,12 @@ call solve_BiCGSTAB(N,N1,N2,NGC,iImin1,iImax1,&
 iOmin1,iOmax1,iImin2,iImax2,iOmin2,iOmax2,min1,max1,min2,max2,pencil,eps0,Nitmax,bc_type,grid_type,x,w_unfold,f)
 
 call unfold(N,N1,N2,fth,fth_unfold)
-call set_GC_to_x0(N,N1,N2,NGC,0.d0,fth_unfold)
+call set_GC_to_x0(N,N1,N2,NGC,0.d0,'all',fth_unfold)
 
 call fold(N,N1,N2,f,f_fold)
 call rm_avg(N1,N2,NGC,min1,max1,min2,max2,x,dx,f_fold)
 call unfold(N,N1,N2,f_fold,f)
-call set_GC_to_x0(N,N1,N2,NGC,0.d0,f)
+call set_GC_to_x0(N,N1,N2,NGC,0.d0,'all',f)
 
 print*, 'Max gap:', maxval(dabs(fth_unfold-f))
 
@@ -415,7 +417,7 @@ eps=0.d0
 call mx_x_vec(N,N1,N2,NGC,A,f,Af)
 Af=dabs(Af-b)
 ! Trick to not pick up ghost cells
-call set_GC_to_x0(N,N1,N2,NGC,0.d0,Af)
+call set_GC_to_x0(N,N1,N2,NGC,0.d0,'all',Af)
 
 eps=maxval(Af)
 ! print*, 'eps', eps
