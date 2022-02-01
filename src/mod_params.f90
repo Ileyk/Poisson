@@ -58,6 +58,11 @@ if (pencil/=3 .and. pencil/=5) &
 if (grid_type=='stretched' .and. bc_type(1)=='periodic') &
   call crash("BCs cannot be periodic if stretched grid")
 
+! if (grid_type=='stretched' .and. &
+!     ((dabs(min1)<smalldble .or. dabs(max1)<smalldble .or. dabs(min2)<smalldble .or. dabs(max2)<smalldble) .or. &
+!      (min1*max1<0.d0 .or. min2*max2<0.d0))) &
+!   call crash("Stretched grid incompatible w/ box bounds")
+
 if ((ANY(bc_type(1:2)=='periodic') .and. ANY(bc_type(1:2)/='periodic')).or.&
     (ANY(bc_type(3:4)=='periodic') .and. ANY(bc_type(3:4)/='periodic')))&
   call crash("Beware, both sides should be periodic if periodic BCs are used")
